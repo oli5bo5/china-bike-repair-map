@@ -51,7 +51,63 @@ export default function EintragenPage() {
     setLoading(true);
     setError(null);
 
-    // Validierung
+    // Pflichtfeld-Validierung
+    if (!formData.name.trim()) {
+      setError('Bitte geben Sie einen Werkstatt-Namen ein');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.adresse.trim()) {
+      setError('Bitte geben Sie eine Adresse ein');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.plz.trim()) {
+      setError('Bitte geben Sie eine PLZ ein');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.stadt.trim()) {
+      setError('Bitte geben Sie eine Stadt ein');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.telefon.trim()) {
+      setError('Bitte geben Sie eine Telefonnummer ein');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      setError('Bitte geben Sie eine E-Mail-Adresse ein');
+      setLoading(false);
+      return;
+    }
+
+    // E-Mail-Format validieren
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError('Bitte geben Sie eine gültige E-Mail-Adresse ein');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.oeffnungszeiten.trim()) {
+      setError('Bitte geben Sie die Öffnungszeiten ein');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.beschreibung.trim()) {
+      setError('Bitte geben Sie eine Beschreibung ein');
+      setLoading(false);
+      return;
+    }
+
     if (formData.marken.length === 0) {
       setError('Bitte wählen Sie mindestens eine Marke aus');
       setLoading(false);
@@ -190,7 +246,7 @@ export default function EintragenPage() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-8" noValidate>
             {/* Grunddaten */}
             <section>
               <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -208,7 +264,6 @@ export default function EintragenPage() {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="z.B. Fahrradwerkstatt Müller"
-                    required
                   />
                 </div>
 
@@ -222,7 +277,6 @@ export default function EintragenPage() {
                     onChange={(e) => setFormData({ ...formData, adresse: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="z.B. Musterstraße 123"
-                    required
                   />
                 </div>
 
@@ -236,7 +290,6 @@ export default function EintragenPage() {
                     onChange={(e) => setFormData({ ...formData, plz: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="12345"
-                    required
                   />
                 </div>
 
@@ -250,7 +303,6 @@ export default function EintragenPage() {
                     onChange={(e) => setFormData({ ...formData, stadt: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="Berlin"
-                    required
                   />
                 </div>
               </div>
@@ -273,7 +325,6 @@ export default function EintragenPage() {
                     onChange={(e) => setFormData({ ...formData, telefon: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="030-12345678"
-                    required
                   />
                 </div>
 
@@ -282,12 +333,11 @@ export default function EintragenPage() {
                     E-Mail *
                   </label>
                   <input
-                    type="email"
+                    type="text"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="info@beispiel.de"
-                    required
                   />
                 </div>
 
@@ -326,7 +376,6 @@ export default function EintragenPage() {
                     onChange={(e) => setFormData({ ...formData, oeffnungszeiten: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="Mo-Fr: 9-18 Uhr, Sa: 10-14 Uhr"
-                    required
                   />
                 </div>
 
@@ -339,7 +388,6 @@ export default function EintragenPage() {
                     onChange={(e) => setFormData({ ...formData, beschreibung: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa] h-32 resize-none"
                     placeholder="Beschreiben Sie Ihre Werkstatt und Ihre Spezialgebiete..."
-                    required
                   />
                 </div>
               </div>
