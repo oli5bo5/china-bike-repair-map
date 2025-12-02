@@ -39,9 +39,18 @@ export default function Header() {
               <Phone className="w-4 h-4" />
               Kontakt
             </Link>
-            <button className="btn-primary text-sm">
+            <Link 
+              href="/auth/login"
+              className="px-4 py-2 text-gray-700 border-2 border-gray-300 rounded-lg hover:border-[#2a5aaa] hover:text-[#2a5aaa] font-semibold transition-all"
+            >
+              Login
+            </Link>
+            <Link 
+              href="/auth/register"
+              className="btn-primary text-sm"
+            >
               Werkstatt eintragen
-            </button>
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
