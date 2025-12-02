@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-primary-500 text-white py-10 mt-12">
+    <footer className="bg-[#2a5aaa] text-white py-10 mt-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Über uns */}
@@ -14,7 +14,7 @@ export default function Footer() {
               <Bike className="w-6 h-6" />
               <h3 className="text-xl font-bold">China Bike Repair</h3>
             </div>
-            <p className="text-primary-100 text-sm">
+            <p className="text-white/80 text-sm">
               Finden Sie Händler und Werkstätten für chinesische Fahrräder und E-Bikes in Ihrer Nähe.
             </p>
           </div>
@@ -24,23 +24,23 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Schnelllinks</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/" className="text-primary-100 hover:text-white transition-colors flex items-center gap-2">
+                <Link href="/" className="text-white/80 hover:text-white transition-colors flex items-center gap-2">
                   <MapPin className="w-4 h-4" />
                   Karte
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-primary-100 hover:text-white transition-colors">
+                <Link href="#" className="text-white/80 hover:text-white transition-colors">
                   Über uns
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-primary-100 hover:text-white transition-colors">
+                <Link href="#" className="text-white/80 hover:text-white transition-colors">
                   Datenschutz
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-primary-100 hover:text-white transition-colors">
+                <Link href="#" className="text-white/80 hover:text-white transition-colors">
                   Impressum
                 </Link>
               </li>
@@ -50,7 +50,7 @@ export default function Footer() {
           {/* Kontakt */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Kontakt</h4>
-            <ul className="space-y-3 text-sm text-primary-100">
+            <ul className="space-y-3 text-sm text-white/80">
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
                 <a href="mailto:info@china-bike-repair.de" className="hover:text-white transition-colors">
@@ -73,11 +73,11 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-primary-400 pt-6 text-center">
-          <p className="text-sm text-primary-100">
+        <div className="border-t border-white/20 pt-6 text-center">
+          <p className="text-sm text-white/80">
             © {new Date().getFullYear()} China Bike Repair Map. Alle Rechte vorbehalten.
           </p>
-          <p className="text-xs text-primary-200 mt-2">
+          <p className="text-xs text-white/60 mt-2">
             Daten werden von der Community bereitgestellt. Keine Garantie für Vollständigkeit.
           </p>
         </div>

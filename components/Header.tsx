@@ -10,11 +10,11 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo und Titel */}
           <div className="flex items-center gap-3">
-            <div className="bg-primary-500 p-3 rounded-full">
+            <div className="bg-[#2a5aaa] p-3 rounded-full shadow-md">
               <Bike className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-primary-500">
+              <h1 className="text-2xl font-bold text-[#2a5aaa]">
                 China Bike Repair
               </h1>
               <p className="text-sm text-gray-600">
@@ -27,14 +27,14 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-6">
             <Link 
               href="/" 
-              className="flex items-center gap-2 text-gray-700 hover:text-primary-500 font-medium transition-colors"
+              className="flex items-center gap-2 text-gray-700 hover:text-[#2a5aaa] font-medium transition-colors"
             >
               <MapPin className="w-4 h-4" />
               Karte
             </Link>
             <Link 
               href="#kontakt" 
-              className="flex items-center gap-2 text-gray-700 hover:text-primary-500 font-medium transition-colors"
+              className="flex items-center gap-2 text-gray-700 hover:text-[#2a5aaa] font-medium transition-colors"
             >
               <Phone className="w-4 h-4" />
               Kontakt

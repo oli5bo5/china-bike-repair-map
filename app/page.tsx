@@ -38,7 +38,7 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-600 via-primary-500 to-primary-700 text-white py-16 shadow-lg">
+      <section className="bg-gradient-to-br from-[#2a5aaa] via-[#3d6bc4] to-[#1e4ba6] text-white py-16 shadow-lg">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
             Finden Sie Ihre Fahrrad-Werkstatt
@@ -93,36 +93,36 @@ export default function Home() {
         {/* Features Section */}
         <section className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="card text-center fade-in">
-            <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-[#e0edff] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-[#2a5aaa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-primary-600 mb-2">Interaktive Karte</h3>
+            <h3 className="text-xl font-bold text-[#2a5aaa] mb-2">Interaktive Karte</h3>
             <p className="text-gray-600 text-sm">
               Finden Sie Werkstätten in Ihrer Nähe auf der interaktiven Karte
             </p>
           </div>
           
           <div className="card text-center fade-in" style={{ animationDelay: '0.1s' }}>
-            <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-[#e0edff] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-[#2a5aaa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-primary-600 mb-2">Smart Filter</h3>
+            <h3 className="text-xl font-bold text-[#2a5aaa] mb-2">Smart Filter</h3>
             <p className="text-gray-600 text-sm">
               Filtern Sie nach Stadt, Marke und angebotenen Dienstleistungen
             </p>
           </div>
           
           <div className="card text-center fade-in" style={{ animationDelay: '0.2s' }}>
-            <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-[#e0edff] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-[#2a5aaa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-primary-600 mb-2">Schnell & Einfach</h3>
+            <h3 className="text-xl font-bold text-[#2a5aaa] mb-2">Schnell & Einfach</h3>
             <p className="text-gray-600 text-sm">
               Kontaktdaten und Öffnungszeiten auf einen Blick
             </p>

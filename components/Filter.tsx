@@ -14,21 +14,21 @@ export default function Filter() {
   return (
     <div className="card space-y-5">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-primary-600">Filter</h2>
-        <div className="bg-primary-100 text-primary-600 px-3 py-1 rounded-full text-sm font-semibold">
+        <h2 className="text-2xl font-bold text-[#2a5aaa]">Filter</h2>
+        <div className="bg-[#e0edff] text-[#2a5aaa] px-3 py-1 rounded-full text-sm font-semibold">
           Suche
         </div>
       </div>
 
       {/* Suchfeld */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary-400 w-5 h-5" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#7db4ff] w-5 h-5" />
         <input
           type="text"
           placeholder="Name, Stadt oder Adresse..."
           value={filters.searchTerm}
           onChange={(e) => setFilters({ searchTerm: e.target.value })}
-          className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+          className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa] transition-all"
         />
       </div>
 
@@ -41,7 +41,7 @@ export default function Filter() {
           <select
             value={filters.selectedStadt}
             onChange={(e) => setFilters({ selectedStadt: e.target.value })}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-white font-medium"
+            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa] transition-all bg-white font-medium"
           >
             <option value="Alle">Alle Städte</option>
             {staedte.map((stadt) => (
@@ -60,7 +60,7 @@ export default function Filter() {
           <select
             value={filters.selectedMarke}
             onChange={(e) => setFilters({ selectedMarke: e.target.value })}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-white font-medium"
+            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa] transition-all bg-white font-medium"
           >
             <option value="Alle">Alle Marken</option>
             {marken.map((marke) => (
@@ -79,7 +79,7 @@ export default function Filter() {
           <select
             value={filters.selectedDienstleistung}
             onChange={(e) => setFilters({ selectedDienstleistung: e.target.value })}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all bg-white font-medium"
+            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa] transition-all bg-white font-medium"
           >
             <option value="Alle">Alle Dienstleistungen</option>
             {dienstleistungen.map((dl) => (

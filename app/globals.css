@@ -80,7 +80,7 @@ body {
 /* Modern Button Styles */
 @layer components {
   .btn-primary {
-    @apply bg-primary-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-all hover:shadow-lg hover:-translate-y-0.5;
+    @apply bg-[#2a5aaa] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#1e4ba6] transition-all hover:shadow-lg hover:-translate-y-0.5;
   }
   
   .btn-secondary {

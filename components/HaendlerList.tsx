@@ -15,7 +15,7 @@ function HaendlerCard({ haendler, isSelected, onClick }: HaendlerCardProps) {
     <div
       onClick={onClick}
       className={`card cursor-pointer transition-all hover:scale-[1.02] ${
-        isSelected ? 'ring-2 ring-primary-500 shadow-medium bg-primary-50' : ''
+        isSelected ? 'ring-2 ring-[#2a5aaa] shadow-medium bg-[#f0f6ff]' : ''
       }`}
     >
       <h3 className="text-lg font-bold text-gray-800 mb-2">{haendler.name}</h3>
@@ -23,22 +23,22 @@ function HaendlerCard({ haendler, isSelected, onClick }: HaendlerCardProps) {
       <div className="space-y-2 text-sm text-gray-600">
         {/* Adresse */}
         <div className="flex items-start gap-2">
-          <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-primary-600" />
+          <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#2a5aaa]" />
           <span>{haendler.adresse}</span>
         </div>
 
         {/* Telefon */}
         <div className="flex items-center gap-2">
-          <Phone className="w-4 h-4 flex-shrink-0 text-primary-600" />
-          <a href={`tel:${haendler.telefon}`} className="hover:text-primary-600">
+          <Phone className="w-4 h-4 flex-shrink-0 text-[#2a5aaa]" />
+          <a href={`tel:${haendler.telefon}`} className="hover:text-[#2a5aaa]">
             {haendler.telefon}
           </a>
         </div>
 
         {/* Email */}
         <div className="flex items-center gap-2">
-          <Mail className="w-4 h-4 flex-shrink-0 text-primary-600" />
-          <a href={`mailto:${haendler.email}`} className="hover:text-primary-600 truncate">
+          <Mail className="w-4 h-4 flex-shrink-0 text-[#2a5aaa]" />
+          <a href={`mailto:${haendler.email}`} className="hover:text-[#2a5aaa] truncate">
             {haendler.email}
           </a>
         </div>
@@ -46,12 +46,12 @@ function HaendlerCard({ haendler, isSelected, onClick }: HaendlerCardProps) {
         {/* Website */}
         {haendler.website && (
           <div className="flex items-center gap-2">
-            <Globe className="w-4 h-4 flex-shrink-0 text-primary-600" />
+            <Globe className="w-4 h-4 flex-shrink-0 text-[#2a5aaa]" />
             <a
               href={haendler.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary-600 truncate"
+              className="hover:text-[#2a5aaa] truncate"
             >
               Website besuchen
             </a>
@@ -60,7 +60,7 @@ function HaendlerCard({ haendler, isSelected, onClick }: HaendlerCardProps) {
 
         {/* Öffnungszeiten */}
         <div className="flex items-start gap-2">
-          <Clock className="w-4 h-4 mt-0.5 flex-shrink-0 text-primary-600" />
+          <Clock className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#2a5aaa]" />
           <span>{haendler.oeffnungszeiten}</span>
         </div>
 
@@ -76,7 +76,7 @@ function HaendlerCard({ haendler, isSelected, onClick }: HaendlerCardProps) {
             {haendler.marken.map((marke) => (
               <span
                 key={marke}
-                className="px-2 py-1 bg-primary-100 text-primary-700 rounded text-xs font-medium"
+                className="px-2 py-1 bg-[#e0edff] text-[#1a3d8f] rounded text-xs font-medium"
               >
                 {marke}
               </span>
@@ -114,10 +114,10 @@ export default function HaendlerList() {
     <div className="space-y-4">
       <div className="card">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-primary-600">
+          <h2 className="text-2xl font-bold text-[#2a5aaa]">
             Werkstätten
           </h2>
-          <span className="bg-primary-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-sm">
+          <span className="bg-[#2a5aaa] text-white px-4 py-2 rounded-full text-sm font-bold shadow-sm">
             {filteredHaendler.length}
           </span>
         </div>
