@@ -259,12 +259,15 @@ export default function AddHaendlerPage() {
                     Website (optional)
                   </label>
                   <input
-                    type="url"
+                    type="text"
                     value={formData.website}
                     onChange={(e) => setFormData({ ...formData, website: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="https://www.beispiel.de"
                   />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Format: https://www.ihre-website.de
+                  </p>
                 </div>
               </div>
             </section>
