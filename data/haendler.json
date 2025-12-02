@@ -1,0 +1,171 @@
+[
+  {
+    "id": 1,
+    "name": "Fahrradwerkstatt Müller",
+    "adresse": "Musterstraße 1, 12345 Berlin",
+    "stadt": "Berlin",
+    "plz": "12345",
+    "telefon": "030-12345678",
+    "email": "info@fahrradwerkstatt-mueller.de",
+    "website": "https://www.fahrradwerkstatt-mueller.de",
+    "marken": ["Trinx", "Merida", "Bosch E-Bikes", "Bafang"],
+    "dienstleistungen": [
+      "Allgemeine Reparatur",
+      "E-Bike-Software-Update",
+      "Motorreparatur",
+      "Akku-Diagnose"
+    ],
+    "oeffnungszeiten": "Mo-Fr: 9-18 Uhr, Sa: 10-14 Uhr",
+    "lat": 52.52,
+    "lng": 13.405,
+    "beschreibung": "Spezialisiert auf chinesische E-Bikes und Fahrräder. Über 10 Jahre Erfahrung."
+  },
+  {
+    "id": 2,
+    "name": "E-Bike Service Schmidt",
+    "adresse": "Beispielweg 2, 54321 Hamburg",
+    "stadt": "Hamburg",
+    "plz": "54321",
+    "telefon": "040-87654321",
+    "email": "service@ebike-schmidt.de",
+    "website": "https://www.ebike-schmidt.de",
+    "marken": ["Bosch", "Shimano Steps", "Bafang", "Ananda"],
+    "dienstleistungen": [
+      "Akku-Reparatur",
+      "Garantie-Service",
+      "E-Bike-Inspektion",
+      "Display-Reparatur"
+    ],
+    "oeffnungszeiten": "Mo-Fr: 8-17 Uhr",
+    "lat": 53.5511,
+    "lng": 9.9937,
+    "beschreibung": "Zertifizierter E-Bike Service mit Fokus auf chinesische Antriebssysteme."
+  },
+  {
+    "id": 3,
+    "name": "Bike Repair München",
+    "adresse": "Leopoldstraße 45, 80802 München",
+    "stadt": "München",
+    "plz": "80802",
+    "telefon": "089-12345678",
+    "email": "kontakt@bikerepair-muenchen.de",
+    "website": null,
+    "marken": ["Trinx", "Merida", "Giant", "Bafang", "Tongsheng"],
+    "dienstleistungen": [
+      "Allgemeine Reparatur",
+      "Motorreparatur",
+      "Bremsen-Service",
+      "Schaltung einstellen"
+    ],
+    "oeffnungszeiten": "Di-Sa: 10-19 Uhr",
+    "lat": 48.1549,
+    "lng": 11.5418,
+    "beschreibung": "Kompetente Reparatur aller chinesischen Fahrradmarken."
+  },
+  {
+    "id": 4,
+    "name": "China Bike Center Köln",
+    "adresse": "Ehrenstraße 12, 50672 Köln",
+    "stadt": "Köln",
+    "plz": "50672",
+    "telefon": "0221-98765432",
+    "email": "info@chinabike-koeln.de",
+    "website": "https://www.chinabike-koeln.de",
+    "marken": ["Trinx", "Sava", "Twitter", "Bafang", "Bosch"],
+    "dienstleistungen": [
+      "Allgemeine Reparatur",
+      "E-Bike-Software-Update",
+      "Akku-Reparatur",
+      "Ersatzteile-Verkauf"
+    ],
+    "oeffnungszeiten": "Mo-Fr: 9-18 Uhr, Sa: 10-16 Uhr",
+    "lat": 50.9375,
+    "lng": 6.9603,
+    "beschreibung": "Spezialist für chinesische Fahrräder und E-Bikes. Große Ersatzteil-Auswahl."
+  },
+  {
+    "id": 5,
+    "name": "E-Mobility Werkstatt Frankfurt",
+    "adresse": "Mainzer Landstraße 100, 60327 Frankfurt",
+    "stadt": "Frankfurt",
+    "plz": "60327",
+    "telefon": "069-55556666",
+    "email": "service@emobility-ffm.de",
+    "website": "https://www.emobility-ffm.de",
+    "marken": ["Bafang", "Ananda", "Shimano Steps", "Bosch"],
+    "dienstleistungen": [
+      "E-Bike-Inspektion",
+      "Akku-Diagnose",
+      "Motor-Wartung",
+      "Software-Update"
+    ],
+    "oeffnungszeiten": "Mo-Fr: 8-18 Uhr, Sa: 9-13 Uhr",
+    "lat": 50.1109,
+    "lng": 8.6821,
+    "beschreibung": "Moderne Werkstatt für alle E-Bike-Systeme, inkl. chinesischer Hersteller."
+  },
+  {
+    "id": 6,
+    "name": "Rad & Tat Stuttgart",
+    "adresse": "Königstraße 78, 70173 Stuttgart",
+    "stadt": "Stuttgart",
+    "plz": "70173",
+    "telefon": "0711-22334455",
+    "email": "info@radundtat-stuttgart.de",
+    "website": null,
+    "marken": ["Trinx", "Merida", "Giant", "Bafang"],
+    "dienstleistungen": [
+      "Allgemeine Reparatur",
+      "Bremsen-Service",
+      "Schaltung einstellen",
+      "Reifenwechsel"
+    ],
+    "oeffnungszeiten": "Mo-Sa: 10-18 Uhr",
+    "lat": 48.7758,
+    "lng": 9.1829,
+    "beschreibung": "Freundliche Werkstatt mit Erfahrung in chinesischen Fahrradmarken."
+  },
+  {
+    "id": 7,
+    "name": "Bike Service Düsseldorf",
+    "adresse": "Friedrichstraße 34, 40217 Düsseldorf",
+    "stadt": "Düsseldorf",
+    "plz": "40217",
+    "telefon": "0211-77889900",
+    "email": "kontakt@bikeservice-duesseldorf.de",
+    "website": "https://www.bikeservice-duesseldorf.de",
+    "marken": ["Bafang", "Tongsheng", "Bosch", "Shimano Steps"],
+    "dienstleistungen": [
+      "E-Bike-Software-Update",
+      "Akku-Reparatur",
+      "Motor-Wartung",
+      "Display-Reparatur"
+    ],
+    "oeffnungszeiten": "Di-Fr: 9-18 Uhr, Sa: 10-14 Uhr",
+    "lat": 51.2277,
+    "lng": 6.7735,
+    "beschreibung": "Spezialisiert auf E-Bike-Reparaturen aller Art."
+  },
+  {
+    "id": 8,
+    "name": "Fahrrad Profi Leipzig",
+    "adresse": "Karl-Liebknecht-Straße 56, 04107 Leipzig",
+    "stadt": "Leipzig",
+    "plz": "04107",
+    "telefon": "0341-11223344",
+    "email": "info@fahrradprofi-leipzig.de",
+    "website": "https://www.fahrradprofi-leipzig.de",
+    "marken": ["Trinx", "Sava", "Twitter", "Merida", "Bafang"],
+    "dienstleistungen": [
+      "Allgemeine Reparatur",
+      "E-Bike-Inspektion",
+      "Motorreparatur",
+      "Ersatzteile-Verkauf"
+    ],
+    "oeffnungszeiten": "Mo-Fr: 9-19 Uhr, Sa: 10-16 Uhr",
+    "lat": 51.3397,
+    "lng": 12.3731,
+    "beschreibung": "Große Auswahl an Ersatzteilen für chinesische Fahrräder."
+  }
+]
+
