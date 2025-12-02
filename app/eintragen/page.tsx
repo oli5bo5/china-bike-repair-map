@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Building, MapPin, Phone, Mail, Globe, Clock, Wrench, Save, Loader2 } from 'lucide-react';
+import { Building, MapPin, Phone, Mail, Globe, Clock, Wrench, Save, Loader2, ArrowLeft, AlertCircle } from 'lucide-react';
 
 const markenOptions = [
   'Trinx', 'Merida', 'Giant', 'Bafang', 'Bosch', 'Shimano Steps',
@@ -25,7 +26,7 @@ const dienstleistungenOptions = [
   'Garantie-Service',
 ];
 
-export default function AddHaendlerPage() {
+export default function EintragenPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,16 +67,39 @@ export default function AddHaendlerPage() {
     }
 
     try {
-      // TODO: Hier später Supabase-Integration
-      // Simuliere erfolgreiche Speicherung
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
+      // Werkstatt in Supabase speichern
+      const { data, error: insertError } = await supabase
+        .from('haendler')
+        .insert([{
+          name: formData.name,
+          adresse: formData.adresse,
+          stadt: formData.stadt,
+          plz: formData.plz,
+          telefon: formData.telefon,
+          email: formData.email,
+          website: formData.website || null,
+          marken: formData.marken,
+          dienstleistungen: formData.dienstleistungen,
+          oeffnungszeiten: formData.oeffnungszeiten,
+          lat: parseFloat(formData.lat),
+          lng: parseFloat(formData.lng),
+          beschreibung: formData.beschreibung,
+          status: 'pending', // Wartet auf Admin-Freigabe
+          user_id: null, // Öffentlicher Eintrag ohne User
+        }])
+        .select();
+
+      if (insertError) throw insertError;
+
       setSuccess(true);
+      
+      // Nach 3 Sekunden zur Startseite
       setTimeout(() => {
-        router.push('/dashboard');
-      }, 2000);
+        router.push('/');
+      }, 3000);
     } catch (err: any) {
-      setError(err.message || 'Fehler beim Speichern. Bitte versuchen Sie es erneut.');
+      console.error('Fehler beim Speichern:', err);
+      setError(err.message || 'Fehler beim Eintragen. Bitte versuchen Sie es erneut.');
     } finally {
       setLoading(false);
     }
@@ -99,16 +123,34 @@ export default function AddHaendlerPage() {
     }));
   };
 
-  const geocodeAddress = async () => {
-    if (!formData.adresse || !formData.stadt) {
-      alert('Bitte geben Sie zuerst Adresse und Stadt ein');
-      return;
-    }
-
-    // Vereinfachte Geocoding-Simulation
-    // In Produktion: Nominatim API oder Google Maps API verwenden
-    alert('Geocoding würde hier Koordinaten ermitteln. Bitte geben Sie Koordinaten manuell ein oder nutzen Sie openstreetmap.org');
-  };
+  if (success) {
+    return (
+      <div className="min-h-screen bg-secondary-50 flex items-center justify-center px-4">
+        <div className="card max-w-md text-center">
+          <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            Erfolgreich eingetragen!
+          </h2>
+          <p className="text-gray-600 mb-4">
+            Ihre Werkstatt wurde erfolgreich eingereicht und wartet auf Freigabe durch einen Administrator.
+          </p>
+          <p className="text-sm text-gray-500 mb-6">
+            Sie werden in wenigen Sekunden zur Startseite weitergeleitet...
+          </p>
+          <Link
+            href="/"
+            className="inline-block bg-[#2a5aaa] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#1e4ba6] transition-all"
+          >
+            Zurück zur Karte
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-secondary-50">
@@ -116,23 +158,37 @@ export default function AddHaendlerPage() {
       <header className="bg-white shadow-md">
         <div className="container mx-auto px-4 py-4">
           <Link
-            href="/dashboard"
+            href="/"
             className="inline-flex items-center gap-2 text-[#2a5aaa] hover:text-[#1e4ba6] font-semibold"
           >
             <ArrowLeft className="w-5 h-5" />
-            Zurück zum Dashboard
+            Zurück zur Karte
           </Link>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
+        {/* Info Banner */}
+        <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-8">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-bold text-blue-900 mb-2">Hinweis zur Eintragung</h3>
+              <p className="text-sm text-blue-800">
+                Ihre Werkstatt wird nach dem Eintragen von einem Administrator geprüft und freigeschaltet. 
+                Dies dient der Qualitätssicherung. Sie erhalten eine Benachrichtigung, sobald Ihr Eintrag live ist.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="card">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-[#2a5aaa] mb-2">
-              Neuen Eintrag hinzufügen
+              Werkstatt eintragen
             </h1>
             <p className="text-gray-600">
-              Füllen Sie das Formular aus, um Ihre Werkstatt einzutragen
+              Füllen Sie das Formular aus, um Ihre Werkstatt auf der Karte einzutragen
             </p>
           </div>
 
@@ -146,7 +202,7 @@ export default function AddHaendlerPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Firmenname *
+                    Werkstatt-Name *
                   </label>
                   <input
                     type="text"
@@ -371,7 +427,7 @@ export default function AddHaendlerPage() {
                   </label>
                   <input
                     type="number"
-                    step="any"
+                    step="0.000001"
                     value={formData.lat}
                     onChange={(e) => setFormData({ ...formData, lat: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
@@ -386,7 +442,7 @@ export default function AddHaendlerPage() {
                   </label>
                   <input
                     type="number"
-                    step="any"
+                    step="0.000001"
                     value={formData.lng}
                     onChange={(e) => setFormData({ ...formData, lng: e.target.value })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
@@ -397,16 +453,11 @@ export default function AddHaendlerPage() {
               </div>
             </section>
 
-            {/* Error/Success Messages */}
+            {/* Error Message */}
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                {error}
-              </div>
-            )}
-
-            {success && (
-              <div className="bg-green-50 border-2 border-green-200 text-green-700 px-4 py-3 rounded-lg">
-                ✅ Eintrag erfolgreich gespeichert! Sie werden weitergeleitet...
+              <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start gap-2">
+                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                <span>{error}</span>
               </div>
             )}
 
@@ -420,17 +471,17 @@ export default function AddHaendlerPage() {
                 {loading ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
-                    Wird gespeichert...
+                    Wird eingetragen...
                   </>
                 ) : (
                   <>
                     <Save className="w-5 h-5" />
-                    Eintrag speichern
+                    Werkstatt eintragen
                   </>
                 )}
               </button>
               <Link
-                href="/dashboard"
+                href="/"
                 className="px-6 py-4 text-gray-700 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-semibold"
               >
                 Abbrechen
@@ -442,5 +493,4 @@ export default function AddHaendlerPage() {
     </div>
   );
 }
-
 

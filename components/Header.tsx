@@ -40,16 +40,16 @@ export default function Header() {
               Kontakt
             </Link>
             <Link 
+              href="/eintragen"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-semibold transition-all"
+            >
+              Werkstatt eintragen
+            </Link>
+            <Link 
               href="/auth/login"
               className="px-4 py-2 text-gray-700 border-2 border-gray-300 rounded-lg hover:border-[#2a5aaa] hover:text-[#2a5aaa] font-semibold transition-all"
             >
               Login
-            </Link>
-            <Link 
-              href="/auth/register"
-              className="btn-primary text-sm"
-            >
-              Werkstatt eintragen
             </Link>
           </nav>
 

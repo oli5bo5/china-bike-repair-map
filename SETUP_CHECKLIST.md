@@ -146,3 +146,4 @@ Wenn alle Checkboxen oben abgehakt sind:
 **Status:** ⏳ Warte auf Supabase-Einrichtung...  
 **Nach Setup:** ✅ PRODUKTIV!
 
+

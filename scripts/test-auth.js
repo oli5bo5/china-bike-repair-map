@@ -75,3 +75,4 @@ fetch(supabaseUrl + '/rest/v1/', {
     console.log('\n');
   });
 
+

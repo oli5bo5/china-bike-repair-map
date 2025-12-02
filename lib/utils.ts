@@ -28,3 +28,4 @@ export function getUniqueStaedte(haendler: Haendler[]): string[] {
   return Array.from(staedteSet).sort();
 }
 
+
