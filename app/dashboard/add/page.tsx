@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
 import { ArrowLeft, Building, MapPin, Phone, Mail, Globe, Clock, Wrench, Save, Loader2 } from 'lucide-react';
 
 const markenOptions = [
@@ -43,8 +44,6 @@ export default function AddHaendlerPage() {
     beschreibung: '',
     marken: [] as string[],
     dienstleistungen: [] as string[],
-    lat: '',
-    lng: '',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,9 +65,37 @@ export default function AddHaendlerPage() {
     }
 
     try {
-      // TODO: Hier später Supabase-Integration
-      // Simuliere erfolgreiche Speicherung
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Werkstatt in Supabase speichern
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        setError('Sie müssen eingeloggt sein');
+        setLoading(false);
+        return;
+      }
+
+      const { data, error: insertError } = await supabase
+        .from('workshops')
+        .insert([{
+          name: formData.name,
+          address: formData.adresse,
+          city: formData.stadt,
+          plz: formData.plz,
+          phone: formData.telefon,
+          email: formData.email,
+          website: formData.website || null,
+          brands: formData.marken,
+          services: formData.dienstleistungen,
+          opening_hours: formData.oeffnungszeiten,
+          latitude: null, // Wird später gesetzt
+          longitude: null, // Wird später gesetzt
+          description: formData.beschreibung,
+          status: 'pending',
+          user_id: user.id,
+        }])
+        .select();
+
+      if (insertError) throw insertError;
       
       setSuccess(true);
       setTimeout(() => {
@@ -99,16 +126,6 @@ export default function AddHaendlerPage() {
     }));
   };
 
-  const geocodeAddress = async () => {
-    if (!formData.adresse || !formData.stadt) {
-      alert('Bitte geben Sie zuerst Adresse und Stadt ein');
-      return;
-    }
-
-    // Vereinfachte Geocoding-Simulation
-    // In Produktion: Nominatim API oder Google Maps API verwenden
-    alert('Geocoding würde hier Koordinaten ermitteln. Bitte geben Sie Koordinaten manuell ein oder nutzen Sie openstreetmap.org');
-  };
 
   return (
     <div className="min-h-screen bg-secondary-50">
@@ -344,55 +361,18 @@ export default function AddHaendlerPage() {
               </div>
             </section>
 
-            {/* Koordinaten */}
+            {/* Info: Standort wird automatisch ermittelt */}
             <section>
-              <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-[#2a5aaa]" />
-                Standort auf der Karte
-              </h2>
-              <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 mb-4">
-                <p className="text-sm text-blue-800">
-                  💡 <strong>Tipp:</strong> Gehen Sie auf{' '}
-                  <a
-                    href="https://www.openstreetmap.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline font-semibold"
-                  >
-                    OpenStreetMap
-                  </a>
-                  , suchen Sie Ihre Adresse, klicken Sie rechts auf den Standort und kopieren Sie die Koordinaten.
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Breitengrad (Latitude) *
-                  </label>
-                  <input
-                    type="number"
-                    step="any"
-                    value={formData.lat}
-                    onChange={(e) => setFormData({ ...formData, lat: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
-                    placeholder="51.1657"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Längengrad (Longitude) *
-                  </label>
-                  <input
-                    type="number"
-                    step="any"
-                    value={formData.lng}
-                    onChange={(e) => setFormData({ ...formData, lng: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
-                    placeholder="10.4515"
-                    required
-                  />
+              <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-bold text-green-900 mb-1">Standort auf der Karte</h3>
+                    <p className="text-sm text-green-800">
+                      Der genaue Standort wird automatisch anhand Ihrer Adresse ermittelt. 
+                      Sie können keine Koordinaten manuell eingeben.
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>

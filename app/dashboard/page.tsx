@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation';
 import { Building, Plus, LogOut, Edit, Trash2, CheckCircle, XCircle, Clock } from 'lucide-react';
 import Link from 'next/link';
 
-interface UserHaendler {
+interface UserWorkshop {
   id: number;
   name: string;
-  stadt: string;
+  city: string;
   status: 'pending' | 'approved' | 'rejected';
   created_at: string;
 }
@@ -17,21 +17,13 @@ interface UserHaendler {
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
-  const [haendler, setHaendler] = useState<UserHaendler[]>([]);
+  const [workshops, setWorkshops] = useState<UserWorkshop[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     checkUser();
-    // Simuliere Händler-Daten (später aus Supabase laden)
-    setHaendler([
-      {
-        id: 1,
-        name: 'Meine Werkstatt GmbH',
-        stadt: 'Berlin',
-        status: 'approved',
-        created_at: new Date().toISOString(),
-      },
-    ]);
+    // Lade echte Workshop-Daten aus Supabase
+    loadWorkshops();
   }, []);
 
   const checkUser = async () => {
@@ -49,6 +41,25 @@ export default function DashboardPage() {
       router.push('/auth/login');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const loadWorkshops = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from('workshops')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      
+      setWorkshops(data || []);
+    } catch (error) {
+      console.error('Error loading workshops:', error);
     }
   };
 
@@ -144,7 +155,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600 mb-1">Gesamt</p>
-                <p className="text-3xl font-bold text-[#2a5aaa]">{haendler.length}</p>
+                <p className="text-3xl font-bold text-[#2a5aaa]">{workshops.length}</p>
               </div>
               <div className="bg-[#e0edff] p-4 rounded-full">
                 <Building className="w-8 h-8 text-[#2a5aaa]" />
@@ -157,7 +168,7 @@ export default function DashboardPage() {
               <div>
                 <p className="text-sm text-gray-600 mb-1">Freigegeben</p>
                 <p className="text-3xl font-bold text-green-600">
-                  {haendler.filter((h) => h.status === 'approved').length}
+                  {workshops.filter((w) => w.status === 'approved').length}
                 </p>
               </div>
               <div className="bg-green-100 p-4 rounded-full">
@@ -171,7 +182,7 @@ export default function DashboardPage() {
               <div>
                 <p className="text-sm text-gray-600 mb-1">In Prüfung</p>
                 <p className="text-3xl font-bold text-yellow-600">
-                  {haendler.filter((h) => h.status === 'pending').length}
+                  {workshops.filter((w) => w.status === 'pending').length}
                 </p>
               </div>
               <div className="bg-yellow-100 p-4 rounded-full">
@@ -194,7 +205,7 @@ export default function DashboardPage() {
             </Link>
           </div>
 
-          {haendler.length === 0 ? (
+          {workshops.length === 0 ? (
             <div className="text-center py-12">
               <Building className="w-16 h-16 text-gray-300 mx-auto mb-4" />
               <p className="text-lg text-gray-600 mb-2">Noch keine Einträge</p>
@@ -211,20 +222,20 @@ export default function DashboardPage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {haendler.map((h) => (
+              {workshops.map((w) => (
                 <div
-                  key={h.id}
+                  key={w.id}
                   className="border-2 border-gray-200 rounded-lg p-4 hover:border-[#2a5aaa] transition-colors"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-bold text-gray-800">{h.name}</h3>
-                        {getStatusBadge(h.status)}
+                        <h3 className="text-lg font-bold text-gray-800">{w.name}</h3>
+                        {getStatusBadge(w.status)}
                       </div>
-                      <p className="text-sm text-gray-600">📍 {h.stadt}</p>
+                      <p className="text-sm text-gray-600">📍 {w.city}</p>
                       <p className="text-xs text-gray-500 mt-2">
-                        Erstellt am {new Date(h.created_at).toLocaleDateString('de-DE')}
+                        Erstellt am {new Date(w.created_at).toLocaleDateString('de-DE')}
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
