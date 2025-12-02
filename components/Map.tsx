@@ -50,8 +50,10 @@ export default function Map({ haendler }: MapProps) {
     markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = [];
 
-    // Erstelle neue Marker für gefilterte Händler
-    haendler.forEach((h) => {
+    // Erstelle neue Marker für gefilterte Händler (nur mit gültigen Koordinaten)
+    const haendlerWithCoords = haendler.filter(h => h.lat && h.lng && h.lat !== 0 && h.lng !== 0);
+    
+    haendlerWithCoords.forEach((h) => {
       const marker = L.marker([h.lat, h.lng])
         .addTo(mapRef.current!)
         .bindPopup(
@@ -76,8 +78,8 @@ export default function Map({ haendler }: MapProps) {
     });
 
     // Passe Kartenansicht an, um alle Marker zu zeigen
-    if (haendler.length > 0) {
-      const bounds = L.latLngBounds(haendler.map((h) => [h.lat, h.lng]));
+    if (haendlerWithCoords.length > 0) {
+      const bounds = L.latLngBounds(haendlerWithCoords.map((h) => [h.lat, h.lng]));
       mapRef.current.fitBounds(bounds, { padding: [50, 50] });
     }
   }, [haendler, setSelectedHaendler]);

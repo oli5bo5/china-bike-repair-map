@@ -7,7 +7,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Filter from '@/components/Filter';
 import HaendlerList from '@/components/HaendlerList';
-import haendlerData from '@/data/haendler.json';
+import { supabase } from '@/lib/supabase';
+import { Haendler } from '@/lib/types';
 
 // Dynamischer Import der Map-Komponente (client-side only)
 const Map = dynamic(() => import('@/components/Map'), {
@@ -22,14 +23,97 @@ const Map = dynamic(() => import('@/components/Map'), {
   ),
 });
 
+// Typ für Supabase Workshop-Daten
+interface WorkshopDB {
+  id: number;
+  name: string;
+  address: string;
+  city: string;
+  plz: string;
+  phone: string;
+  email: string;
+  website: string | null;
+  brands: string[];
+  services: string[];
+  opening_hours: string;
+  latitude: number | null;
+  longitude: number | null;
+  description: string;
+  status: string;
+}
+
+// Konvertiert Supabase-Daten ins Frontend-Format
+function convertToHaendler(workshop: WorkshopDB): Haendler {
+  return {
+    id: workshop.id,
+    name: workshop.name,
+    adresse: workshop.address,
+    stadt: workshop.city,
+    plz: workshop.plz || '',
+    telefon: workshop.phone,
+    email: workshop.email,
+    website: workshop.website,
+    marken: workshop.brands || [],
+    dienstleistungen: workshop.services || [],
+    oeffnungszeiten: workshop.opening_hours || '',
+    lat: workshop.latitude || 0,
+    lng: workshop.longitude || 0,
+    beschreibung: workshop.description || '',
+  };
+}
+
 export default function Home() {
   const { setHaendler, getFilteredHaendler } = useMapStore();
   const [isClient, setIsClient] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [totalCount, setTotalCount] = useState(0);
+  const [cityCount, setCityCount] = useState(0);
 
   useEffect(() => {
     setIsClient(true);
-    setHaendler(haendlerData);
-  }, [setHaendler]);
+    loadWorkshops();
+  }, []);
+
+  const loadWorkshops = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Lade alle approved Werkstätten aus Supabase
+      const { data, error: fetchError } = await supabase
+        .from('workshops')
+        .select('*')
+        .eq('status', 'approved');
+
+      if (fetchError) {
+        console.error('Supabase Error:', fetchError);
+        setError('Fehler beim Laden der Werkstätten');
+        return;
+      }
+
+      if (data && data.length > 0) {
+        // Konvertiere DB-Daten ins Frontend-Format
+        const haendlerData: Haendler[] = data.map(convertToHaendler);
+        setHaendler(haendlerData);
+        setTotalCount(haendlerData.length);
+        
+        // Berechne einzigartige Städte
+        const uniqueCities = new Set(haendlerData.map(h => h.stadt));
+        setCityCount(uniqueCities.size);
+      } else {
+        // Keine Daten gefunden
+        setHaendler([]);
+        setTotalCount(0);
+        setCityCount(0);
+      }
+    } catch (err) {
+      console.error('Error loading workshops:', err);
+      setError('Fehler beim Laden der Daten');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredHaendler = isClient ? getFilteredHaendler() : [];
 
@@ -48,11 +132,15 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-3 flex items-center gap-2">
-              <span className="text-3xl font-bold">{filteredHaendler.length}</span>
+              <span className="text-3xl font-bold">
+                {loading ? '...' : totalCount}
+              </span>
               <span className="text-primary-100">Werkstätten</span>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-3 flex items-center gap-2">
-              <span className="text-3xl font-bold">8</span>
+              <span className="text-3xl font-bold">
+                {loading ? '...' : cityCount}
+              </span>
               <span className="text-primary-100">Städte</span>
             </div>
           </div>
@@ -60,6 +148,33 @@ export default function Home() {
       </section>
 
       <main className="flex-1 container mx-auto px-4 py-8">
+        {/* Fehler-Anzeige */}
+        {error && (
+          <div className="mb-6 bg-red-50 border-2 border-red-200 rounded-lg p-4 text-red-700">
+            <p className="font-semibold">⚠️ {error}</p>
+            <p className="text-sm mt-1">
+              Bitte stellen Sie sicher, dass die Supabase-Verbindung korrekt konfiguriert ist.
+            </p>
+            <button 
+              onClick={loadWorkshops}
+              className="mt-2 text-sm underline hover:no-underline"
+            >
+              Erneut versuchen
+            </button>
+          </div>
+        )}
+
+        {/* Keine Werkstätten Info */}
+        {!loading && !error && totalCount === 0 && (
+          <div className="mb-6 bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4 text-yellow-800">
+            <p className="font-semibold">📋 Noch keine Werkstätten vorhanden</p>
+            <p className="text-sm mt-1">
+              Es wurden noch keine freigegebenen Werkstätten gefunden. 
+              Neue Einträge müssen von einem Administrator freigegeben werden.
+            </p>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[600px]">
           {/* Linke Sidebar: Filter */}
           <div className="lg:col-span-3">
@@ -71,14 +186,30 @@ export default function Home() {
           {/* Mitte: Karte */}
           <div className="lg:col-span-5 h-[600px]">
             <div className="fade-in h-full">
-              {isClient && <Map haendler={filteredHaendler} />}
+              {loading ? (
+                <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-lg">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+                    <p className="text-gray-600">Werkstätten werden geladen...</p>
+                  </div>
+                </div>
+              ) : (
+                isClient && <Map haendler={filteredHaendler} />
+              )}
             </div>
           </div>
 
           {/* Rechte Sidebar: Händler-Liste */}
           <div className="lg:col-span-4 max-h-[600px] overflow-y-auto">
             <div className="fade-in">
-              <HaendlerList />
+              {loading ? (
+                <div className="card p-8 text-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
+                  <p className="text-gray-600">Lädt...</p>
+                </div>
+              ) : (
+                <HaendlerList />
+              )}
             </div>
           </div>
         </div>
@@ -134,4 +265,3 @@ export default function Home() {
     </div>
   );
 }
-
