@@ -240,7 +240,7 @@ export default function EintragenPage() {
           </p>
           <Link
             href="/"
-            className="inline-block bg-[#2a5aaa] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#1e4ba6] transition-all"
+            className="inline-block bg-[#2a5aaa] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#1e4ba6] transition-all"
           >
             Zurück zur Karte
           </Link>
@@ -266,7 +266,7 @@ export default function EintragenPage() {
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Info Banner */}
-        <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-8">
+        <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 mb-8">
           <div className="flex items-start gap-3">
             <AlertCircle className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
             <div>
@@ -305,7 +305,7 @@ export default function EintragenPage() {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="z.B. Fahrradwerkstatt Müller"
                   />
                 </div>
@@ -318,7 +318,7 @@ export default function EintragenPage() {
                     type="text"
                     value={formData.adresse}
                     onChange={(e) => setFormData({ ...formData, adresse: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="z.B. Musterstraße 123"
                   />
                 </div>
@@ -331,7 +331,7 @@ export default function EintragenPage() {
                     type="text"
                     value={formData.plz}
                     onChange={(e) => setFormData({ ...formData, plz: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="12345"
                   />
                 </div>
@@ -344,7 +344,7 @@ export default function EintragenPage() {
                     type="text"
                     value={formData.stadt}
                     onChange={(e) => setFormData({ ...formData, stadt: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="Berlin"
                   />
                 </div>
@@ -366,7 +366,7 @@ export default function EintragenPage() {
                     type="tel"
                     value={formData.telefon}
                     onChange={(e) => setFormData({ ...formData, telefon: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="030-12345678"
                   />
                 </div>
@@ -379,7 +379,7 @@ export default function EintragenPage() {
                     type="text"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="info@beispiel.de"
                   />
                 </div>
@@ -392,7 +392,7 @@ export default function EintragenPage() {
                     type="text"
                     value={formData.website}
                     onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="https://www.beispiel.de"
                   />
                   <p className="text-xs text-gray-500 mt-1">
@@ -417,7 +417,7 @@ export default function EintragenPage() {
                     type="text"
                     value={formData.oeffnungszeiten}
                     onChange={(e) => setFormData({ ...formData, oeffnungszeiten: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa]"
                     placeholder="Mo-Fr: 9-18 Uhr, Sa: 10-14 Uhr"
                   />
                 </div>
@@ -429,7 +429,7 @@ export default function EintragenPage() {
                   <textarea
                     value={formData.beschreibung}
                     onChange={(e) => setFormData({ ...formData, beschreibung: e.target.value })}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa] h-32 resize-none"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2a5aaa] focus:border-[#2a5aaa] h-32 resize-none"
                     placeholder="Beschreiben Sie Ihre Werkstatt und Ihre Spezialgebiete..."
                   />
                 </div>
@@ -446,7 +446,7 @@ export default function EintragenPage() {
                 {markenOptions.map((marke) => (
                   <label
                     key={marke}
-                    className={`flex items-center gap-2 px-4 py-3 border-2 rounded-lg cursor-pointer transition-all ${
+                    className={`flex items-center gap-2 px-4 py-3 border-2 rounded-xl cursor-pointer transition-all ${
                       formData.marken.includes(marke)
                         ? 'border-[#2a5aaa] bg-[#e0edff]'
                         : 'border-gray-200 hover:border-[#2a5aaa]'
@@ -474,7 +474,7 @@ export default function EintragenPage() {
                 {dienstleistungenOptions.map((dl) => (
                   <label
                     key={dl}
-                    className={`flex items-center gap-2 px-4 py-3 border-2 rounded-lg cursor-pointer transition-all ${
+                    className={`flex items-center gap-2 px-4 py-3 border-2 rounded-xl cursor-pointer transition-all ${
                       formData.dienstleistungen.includes(dl)
                         ? 'border-[#2a5aaa] bg-[#e0edff]'
                         : 'border-gray-200 hover:border-[#2a5aaa]'
@@ -494,7 +494,7 @@ export default function EintragenPage() {
 
             {/* Info: Standort wird automatisch ermittelt */}
             <section>
-              <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4">
+              <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
                   <div>
@@ -510,7 +510,7 @@ export default function EintragenPage() {
 
             {/* Error Message */}
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start gap-2">
+              <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-start gap-2">
                 <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                 <span>{error}</span>
               </div>
@@ -521,7 +521,7 @@ export default function EintragenPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-[#2a5aaa] text-white py-4 rounded-lg font-semibold hover:bg-[#1e4ba6] transition-all hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex-1 bg-[#2a5aaa] text-white py-4 rounded-xl font-semibold hover:bg-[#1e4ba6] transition-all hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
@@ -537,7 +537,7 @@ export default function EintragenPage() {
               </button>
               <Link
                 href="/"
-                className="px-6 py-4 text-gray-700 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-semibold"
+                className="px-6 py-4 text-gray-700 border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition-colors font-semibold"
               >
                 Abbrechen
               </Link>

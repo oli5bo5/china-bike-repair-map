@@ -256,7 +256,7 @@ export default function Home() {
           </p>
           <a 
             href="/eintragen" 
-            className="inline-flex items-center gap-2 bg-[#800000] text-white px-8 py-3 font-semibold uppercase tracking-wider hover:bg-[#A52A2A] transition-all shadow-md hover:shadow-lg"
+            className="inline-flex items-center gap-2 bg-[#800000] text-white px-8 py-3 font-semibold uppercase tracking-wider hover:bg-[#A52A2A] transition-all shadow-md hover:shadow-lg rounded-xl"
           >
             <Wrench className="w-5 h-5" />
             Jetzt eintragen
