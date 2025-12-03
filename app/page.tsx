@@ -73,6 +73,28 @@ export default function Home() {
   useEffect(() => {
     setIsClient(true);
     loadWorkshops();
+
+    // Realtime Subscription für automatische Updates
+    const channel = supabase
+      .channel('workshops-realtime')
+      .on(
+        'postgres_changes',
+        {
+          event: '*', // INSERT, UPDATE, DELETE
+          schema: 'public',
+          table: 'workshops'
+        },
+        (payload) => {
+          console.log('Workshop changed:', payload.eventType);
+          loadWorkshops(); // Daten neu laden bei Änderungen
+        }
+      )
+      .subscribe();
+
+    // Cleanup bei Unmount
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const loadWorkshops = async () => {
