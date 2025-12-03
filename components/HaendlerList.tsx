@@ -89,8 +89,7 @@ export default function HaendlerList() {
                 >
                   <Globe className="w-4 h-4 text-[#800000]" />
                   Website besuchen
-                </a>
-              </a>
+                </a>   
               )}
             </div>
 
