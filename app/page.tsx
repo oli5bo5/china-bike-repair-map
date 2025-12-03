@@ -138,15 +138,36 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-white">
       <Header />
 
-      {/* Kompakte Hero Section - Karte sofort sichtbar */}
+      {/* Kompakte Hero Section mit Statistik-Buttons */}
       <section className="bg-[#F5F5DC] py-4">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-2xl lg:text-3xl font-bold text-[#1e3a5f] uppercase tracking-wide">
-            Finden Sie Ihre Werkstatt
-          </h1>
-          <p className="text-sm text-[#666] mt-1">
-            {loading ? '...' : `${totalCount} Werkstätten in ${cityCount} Städten`} für chinesische Fahrräder & E-Bikes
-          </p>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Titel */}
+            <div className="text-center md:text-left">
+              <h1 className="text-2xl lg:text-3xl font-bold text-[#1e3a5f] uppercase tracking-wide">
+                Finden Sie Ihre Werkstatt
+              </h1>
+              <p className="text-sm text-[#666] mt-1">
+                Für chinesische Fahrräder & E-Bikes in Deutschland
+              </p>
+            </div>
+            
+            {/* Statistik-Buttons */}
+            <div className="flex gap-3">
+              <div className="bg-white px-5 py-2 shadow-md rounded-xl border-l-4 border-[#800000]">
+                <span className="text-2xl font-bold text-[#1e3a5f]">
+                  {loading ? '...' : totalCount}
+                </span>
+                <span className="block text-xs uppercase tracking-wide text-[#666]">Werkstätten</span>
+              </div>
+              <div className="bg-white px-5 py-2 shadow-md rounded-xl border-l-4 border-[#800000]">
+                <span className="text-2xl font-bold text-[#1e3a5f]">
+                  {loading ? '...' : cityCount}
+                </span>
+                <span className="block text-xs uppercase tracking-wide text-[#666]">Städte</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
