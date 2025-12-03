@@ -90,3 +90,4 @@ COMMENT ON TABLE workshops IS 'Werkstätten für China-Fahrräder und E-Bikes';
 COMMENT ON COLUMN workshops.latitude IS 'Wird automatisch via Geocoding API gesetzt oder vom Admin nachgetragen';
 COMMENT ON COLUMN workshops.longitude IS 'Wird automatisch via Geocoding API gesetzt oder vom Admin nachgetragen';
 
+

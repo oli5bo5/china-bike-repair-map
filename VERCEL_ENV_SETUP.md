@@ -222,3 +222,4 @@ Oder: Browser-Cache leeren
 
 **Nach dem Setzen der Variables ist Ihre Website voll funktionsfähig! 🚀**
 
+

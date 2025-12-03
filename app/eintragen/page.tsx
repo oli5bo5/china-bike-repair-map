@@ -26,6 +26,40 @@ const dienstleistungenOptions = [
   'Garantie-Service',
 ];
 
+// Geocoding-Funktion mit OpenStreetMap Nominatim API
+async function geocodeAddress(adresse: string, plz: string, stadt: string): Promise<{ lat: number; lng: number } | null> {
+  try {
+    const searchQuery = encodeURIComponent(`${adresse}, ${plz} ${stadt}, Germany`);
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${searchQuery}&limit=1`,
+      {
+        headers: {
+          'User-Agent': 'ChinaBikeRepairMap/1.0 (info@china-bike-repair.de)'
+        }
+      }
+    );
+    
+    if (!response.ok) {
+      console.error('Geocoding API error:', response.status);
+      return null;
+    }
+    
+    const data = await response.json();
+    
+    if (data && data.length > 0) {
+      return {
+        lat: parseFloat(data[0].lat),
+        lng: parseFloat(data[0].lon)
+      };
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Geocoding error:', error);
+    return null;
+  }
+}
+
 export default function EintragenPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -121,6 +155,15 @@ export default function EintragenPage() {
     }
 
     try {
+      // Automatisches Geocoding der Adresse
+      const coordinates = await geocodeAddress(
+        formData.adresse,
+        formData.plz,
+        formData.stadt
+      );
+      
+      console.log('Geocoding result:', coordinates);
+      
       // Werkstatt in Supabase speichern
       const { data, error: insertError } = await supabase
         .from('workshops')
@@ -135,10 +178,10 @@ export default function EintragenPage() {
           brands: formData.marken,
           services: formData.dienstleistungen,
           opening_hours: formData.oeffnungszeiten,
-          latitude: null, // Wird später via Geocoding oder vom Admin gesetzt
-          longitude: null, // Wird später via Geocoding oder vom Admin gesetzt
+          latitude: coordinates?.lat || null,
+          longitude: coordinates?.lng || null,
           description: formData.beschreibung,
-          status: 'pending', // Wartet auf Admin-Freigabe
+          status: 'approved', // Direkt freigeben für sofortige Anzeige
           user_id: null, // Öffentlicher Eintrag ohne User
         }])
         .select();

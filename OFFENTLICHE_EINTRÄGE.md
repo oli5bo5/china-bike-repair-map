@@ -220,3 +220,4 @@ ORDER BY created_at DESC;
 
 **Viel Erfolg mit den öffentlichen Einträgen! 🚀**
 
+
