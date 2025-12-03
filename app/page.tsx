@@ -138,81 +138,15 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-white">
       <Header />
 
-      {/* Hero Section - max-w-7xl wie Feature-Section */}
-      <section className="relative bg-[#F5F5DC] py-16 lg:py-20 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-          {/* Main Title - BLAU statt ROT */}
-          <h1 className="text-4xl lg:text-5xl font-bold text-[#1e3a5f] mb-4 uppercase tracking-wide">
+      {/* Kompakte Hero Section - Karte sofort sichtbar */}
+      <section className="bg-[#F5F5DC] py-4">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h1 className="text-2xl lg:text-3xl font-bold text-[#1e3a5f] uppercase tracking-wide">
             Finden Sie Ihre Werkstatt
           </h1>
-          <div className="w-16 h-0.5 bg-[#800000] mx-auto my-4"></div>
-          <p className="text-lg text-[#333] mb-8">
-            Spezialisierte Händler und Werkstätten für chinesische Fahrräder und E-Bikes in ganz Deutschland
+          <p className="text-sm text-[#666] mt-1">
+            {loading ? '...' : `${totalCount} Werkstätten in ${cityCount} Städten`} für chinesische Fahrräder & E-Bikes
           </p>
-
-          {/* Statistics */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
-            <div className="bg-white px-8 py-4 shadow-md border-l-4 border-[#800000]">
-              <span className="text-4xl font-bold text-[#1e3a5f]">
-                {loading ? '...' : totalCount}
-              </span>
-              <span className="block text-sm uppercase tracking-wide text-[#333] mt-1">Werkstätten</span>
-            </div>
-            <div className="bg-white px-8 py-4 shadow-md border-l-4 border-[#800000]">
-              <span className="text-4xl font-bold text-[#1e3a5f]">
-                {loading ? '...' : cityCount}
-              </span>
-              <span className="block text-sm uppercase tracking-wide text-[#333] mt-1">Städte</span>
-            </div>
-          </div>
-
-          {/* CTA Button */}
-          <a 
-            href="#map-section" 
-            className="inline-block bg-[#800000] text-white px-8 py-3 font-semibold uppercase tracking-wider hover:bg-[#A52A2A] transition-all shadow-md hover:shadow-lg"
-          >
-            Zur Karte
-          </a>
-        </div>
-      </section>
-
-      {/* Feature Section - max-w-7xl */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="feature-box">
-              <div className="text-[#1e3a5f] mb-4">
-                <MapPin className="w-12 h-12 mx-auto" />
-              </div>
-              <h3 className="text-xl font-bold text-[#1e3a5f] mb-3 uppercase">Interaktive Karte</h3>
-              <p className="text-[#666]">
-                Finden Sie Werkstätten in Ihrer Nähe auf unserer interaktiven Deutschlandkarte
-              </p>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="feature-box" style={{ animationDelay: '0.1s' }}>
-              <div className="text-[#1e3a5f] mb-4">
-                <Search className="w-12 h-12 mx-auto" />
-              </div>
-              <h3 className="text-xl font-bold text-[#1e3a5f] mb-3 uppercase">Smart Filter</h3>
-              <p className="text-[#666]">
-                Filtern Sie nach Stadt, Marke und angebotenen Dienstleistungen
-              </p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="feature-box" style={{ animationDelay: '0.2s' }}>
-              <div className="text-[#1e3a5f] mb-4">
-                <Zap className="w-12 h-12 mx-auto" />
-              </div>
-              <h3 className="text-xl font-bold text-[#1e3a5f] mb-3 uppercase">Schnell & Einfach</h3>
-              <p className="text-[#666]">
-                Kontaktdaten und Öffnungszeiten auf einen Blick verfügbar
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
