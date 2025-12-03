@@ -9,15 +9,16 @@ import Filter from '@/components/Filter';
 import HaendlerList from '@/components/HaendlerList';
 import { supabase } from '@/lib/supabase';
 import { Haendler } from '@/lib/types';
+import { MapPin, Wrench, Search, Zap } from 'lucide-react';
 
 // Dynamischer Import der Map-Komponente (client-side only)
 const Map = dynamic(() => import('@/components/Map'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-lg">
+    <div className="w-full h-full flex items-center justify-center bg-[#F5F5DC]">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-        <p className="text-gray-600">Karte wird geladen...</p>
+        <div className="w-12 h-12 border-4 border-[#800000] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-[#800000] font-medium uppercase tracking-wide text-sm">Karte wird geladen...</p>
       </div>
     </div>
   ),
@@ -80,18 +81,17 @@ export default function Home() {
       .on(
         'postgres_changes',
         {
-          event: '*', // INSERT, UPDATE, DELETE
+          event: '*',
           schema: 'public',
           table: 'workshops'
         },
         (payload) => {
           console.log('Workshop changed:', payload.eventType);
-          loadWorkshops(); // Daten neu laden bei Änderungen
+          loadWorkshops();
         }
       )
       .subscribe();
 
-    // Cleanup bei Unmount
     return () => {
       supabase.removeChannel(channel);
     };
@@ -102,7 +102,6 @@ export default function Home() {
       setLoading(true);
       setError(null);
 
-      // Lade alle approved Werkstätten aus Supabase
       const { data, error: fetchError } = await supabase
         .from('workshops')
         .select('*')
@@ -115,16 +114,12 @@ export default function Home() {
       }
 
       if (data && data.length > 0) {
-        // Konvertiere DB-Daten ins Frontend-Format
         const haendlerData: Haendler[] = data.map(convertToHaendler);
         setHaendler(haendlerData);
         setTotalCount(haendlerData.length);
-        
-        // Berechne einzigartige Städte
         const uniqueCities = new Set(haendlerData.map(h => h.stadt));
         setCityCount(uniqueCities.size);
       } else {
-        // Keine Daten gefunden
         setHaendler([]);
         setTotalCount(0);
         setCityCount(0);
@@ -140,148 +135,178 @@ export default function Home() {
   const filteredHaendler = isClient ? getFilteredHaendler() : [];
 
   return (
-    <div className="flex flex-col min-h-screen bg-secondary-50">
+    <div className="flex flex-col min-h-screen bg-white">
       <Header />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#2a5aaa] via-[#3d6bc4] to-[#1e4ba6] text-white py-16 shadow-lg">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
-            Finden Sie Ihre Fahrrad-Werkstatt
-          </h1>
-          <p className="text-xl text-primary-50 mb-6 max-w-2xl mx-auto">
-            Händler und Werkstätten für chinesische Fahrräder und E-Bikes in Deutschland
+      {/* Hero Section - Urban Pedal Craft Style */}
+      <section className="relative bg-[#F5F5DC] py-16 lg:py-24 overflow-hidden">
+        {/* Ink Decoration */}
+        <div className="ink-decoration top-0 left-0"></div>
+        <div className="ink-decoration bottom-0 right-0 rotate-180"></div>
+        
+        <div className="container mx-auto px-4 text-center relative z-10">
+          {/* Main Title */}
+          <h2 className="text-4xl lg:text-5xl font-bold text-[#800000] mb-4 uppercase tracking-wide">
+            Finden Sie Ihre Werkstatt
+          </h2>
+          <div className="divider"></div>
+          <p className="text-lg text-[#333] max-w-2xl mx-auto mb-8">
+            Spezialisierte Händler und Werkstätten für chinesische Fahrräder und E-Bikes in ganz Deutschland
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-3 flex items-center gap-2">
-              <span className="text-3xl font-bold">
+
+          {/* Statistics */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
+            <div className="bg-white px-8 py-4 shadow-md border-l-4 border-[#800000]">
+              <span className="text-4xl font-bold text-[#800000]">
                 {loading ? '...' : totalCount}
               </span>
-              <span className="text-primary-100">Werkstätten</span>
+              <span className="block text-sm uppercase tracking-wide text-[#333] mt-1">Werkstätten</span>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg px-6 py-3 flex items-center gap-2">
-              <span className="text-3xl font-bold">
+            <div className="bg-white px-8 py-4 shadow-md border-l-4 border-[#800000]">
+              <span className="text-4xl font-bold text-[#800000]">
                 {loading ? '...' : cityCount}
               </span>
-              <span className="text-primary-100">Städte</span>
+              <span className="block text-sm uppercase tracking-wide text-[#333] mt-1">Städte</span>
+            </div>
+          </div>
+
+          {/* CTA Button */}
+          <a 
+            href="#map-section" 
+            className="inline-block btn-primary"
+          >
+            Jetzt Werkstatt finden
+          </a>
+        </div>
+      </section>
+
+      {/* Feature Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div className="feature-box">
+              <div className="feature-icon">
+                <MapPin className="w-12 h-12 mx-auto" />
+              </div>
+              <h3 className="text-xl font-bold text-[#800000] mb-3 uppercase">Interaktive Karte</h3>
+              <p className="text-[#666]">
+                Finden Sie Werkstätten in Ihrer Nähe auf unserer interaktiven Deutschlandkarte
+              </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="feature-box" style={{ animationDelay: '0.1s' }}>
+              <div className="feature-icon">
+                <Search className="w-12 h-12 mx-auto" />
+              </div>
+              <h3 className="text-xl font-bold text-[#800000] mb-3 uppercase">Smart Filter</h3>
+              <p className="text-[#666]">
+                Filtern Sie nach Stadt, Marke und angebotenen Dienstleistungen
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="feature-box" style={{ animationDelay: '0.2s' }}>
+              <div className="feature-icon">
+                <Zap className="w-12 h-12 mx-auto" />
+              </div>
+              <h3 className="text-xl font-bold text-[#800000] mb-3 uppercase">Schnell & Einfach</h3>
+              <p className="text-[#666]">
+                Kontaktdaten und Öffnungszeiten auf einen Blick verfügbar
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <main className="flex-1 container mx-auto px-4 py-8">
-        {/* Fehler-Anzeige */}
-        {error && (
-          <div className="mb-6 bg-red-50 border-2 border-red-200 rounded-lg p-4 text-red-700">
-            <p className="font-semibold">⚠️ {error}</p>
-            <p className="text-sm mt-1">
-              Bitte stellen Sie sicher, dass die Supabase-Verbindung korrekt konfiguriert ist.
-            </p>
-            <button 
-              onClick={loadWorkshops}
-              className="mt-2 text-sm underline hover:no-underline"
-            >
-              Erneut versuchen
-            </button>
+      {/* Main Content - Map & List */}
+      <main id="map-section" className="flex-1 bg-[#F5F5DC] py-12">
+        <div className="container mx-auto px-4">
+          {/* Section Title */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-[#800000] uppercase tracking-wide">Werkstätten-Verzeichnis</h2>
+            <div className="divider"></div>
           </div>
-        )}
 
-        {/* Keine Werkstätten Info */}
-        {!loading && !error && totalCount === 0 && (
-          <div className="mb-6 bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4 text-yellow-800">
-            <p className="font-semibold">📋 Noch keine Werkstätten vorhanden</p>
-            <p className="text-sm mt-1">
-              Es wurden noch keine freigegebenen Werkstätten gefunden. 
-              Neue Einträge müssen von einem Administrator freigegeben werden.
-            </p>
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[600px]">
-          {/* Linke Sidebar: Filter */}
-          <div className="lg:col-span-3">
-            <div className="fade-in">
-              <Filter />
+          {/* Error Message */}
+          {error && (
+            <div className="mb-6 bg-white border-l-4 border-[#800000] p-4 shadow-md">
+              <p className="font-semibold text-[#800000]">⚠️ {error}</p>
+              <button 
+                onClick={loadWorkshops}
+                className="mt-2 text-sm text-[#800000] underline hover:no-underline"
+              >
+                Erneut versuchen
+              </button>
             </div>
-          </div>
+          )}
 
-          {/* Mitte: Karte */}
-          <div className="lg:col-span-5 h-[600px]">
-            <div className="fade-in h-full">
-              {loading ? (
-                <div className="w-full h-full flex items-center justify-center bg-gray-100 rounded-lg">
-                  <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-                    <p className="text-gray-600">Werkstätten werden geladen...</p>
+          {/* No Workshops Info */}
+          {!loading && !error && totalCount === 0 && (
+            <div className="mb-6 bg-white border-l-4 border-[#A52A2A] p-4 shadow-md">
+              <p className="font-semibold text-[#800000]">📋 Noch keine Werkstätten vorhanden</p>
+              <p className="text-sm text-[#666] mt-1">
+                Neue Einträge müssen von einem Administrator freigegeben werden.
+              </p>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[600px]">
+            {/* Left Sidebar: Filter */}
+            <div className="lg:col-span-3">
+              <div className="fade-in">
+                <Filter />
+              </div>
+            </div>
+
+            {/* Center: Map */}
+            <div className="lg:col-span-5 h-[600px]">
+              <div className="fade-in h-full bg-white shadow-md border-t-4 border-[#800000] overflow-hidden">
+                {loading ? (
+                  <div className="w-full h-full flex items-center justify-center bg-[#F5F5DC]">
+                    <div className="text-center">
+                      <div className="w-12 h-12 border-4 border-[#800000] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                      <p className="text-[#800000] font-medium uppercase tracking-wide text-sm">Lädt...</p>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                isClient && <Map haendler={filteredHaendler} />
-              )}
+                ) : (
+                  isClient && <Map haendler={filteredHaendler} />
+                )}
+              </div>
             </div>
-          </div>
 
-          {/* Rechte Sidebar: Händler-Liste */}
-          <div className="lg:col-span-4 max-h-[600px] overflow-y-auto">
-            <div className="fade-in">
-              {loading ? (
-                <div className="card p-8 text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-                  <p className="text-gray-600">Lädt...</p>
-                </div>
-              ) : (
-                <HaendlerList />
-              )}
+            {/* Right Sidebar: Workshop List */}
+            <div className="lg:col-span-4 max-h-[600px] overflow-y-auto">
+              <div className="fade-in">
+                {loading ? (
+                  <div className="card p-8 text-center bg-white">
+                    <div className="w-8 h-8 border-4 border-[#800000] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-[#666]">Lädt...</p>
+                  </div>
+                ) : (
+                  <HaendlerList />
+                )}
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Mobile Layout Info */}
-        <div className="lg:hidden mt-6 p-4 bg-primary-50 border border-primary-200 rounded-lg fade-in">
-          <p className="text-sm text-primary-800">
-            💡 <strong>Tipp:</strong> Für die beste Erfahrung nutzen Sie bitte einen Desktop-Browser oder drehen Sie Ihr Gerät ins Querformat.
-          </p>
-        </div>
-
-        {/* Features Section */}
-        <section className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="card text-center fade-in">
-            <div className="bg-[#e0edff] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-[#2a5aaa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-[#2a5aaa] mb-2">Interaktive Karte</h3>
-            <p className="text-gray-600 text-sm">
-              Finden Sie Werkstätten in Ihrer Nähe auf der interaktiven Karte
-            </p>
-          </div>
-          
-          <div className="card text-center fade-in" style={{ animationDelay: '0.1s' }}>
-            <div className="bg-[#e0edff] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-[#2a5aaa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-[#2a5aaa] mb-2">Smart Filter</h3>
-            <p className="text-gray-600 text-sm">
-              Filtern Sie nach Stadt, Marke und angebotenen Dienstleistungen
-            </p>
-          </div>
-          
-          <div className="card text-center fade-in" style={{ animationDelay: '0.2s' }}>
-            <div className="bg-[#e0edff] w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-[#2a5aaa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-[#2a5aaa] mb-2">Schnell & Einfach</h3>
-            <p className="text-gray-600 text-sm">
-              Kontaktdaten und Öffnungszeiten auf einen Blick
-            </p>
-          </div>
-        </section>
       </main>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-[#800000] mb-4 uppercase">Sie betreiben eine Werkstatt?</h2>
+          <div className="divider"></div>
+          <p className="text-lg text-[#666] max-w-xl mx-auto mb-8">
+            Tragen Sie Ihre Werkstatt kostenlos ein und werden Sie Teil unseres Netzwerks für chinesische Fahrräder und E-Bikes.
+          </p>
+          <a href="/eintragen" className="btn-primary inline-flex items-center gap-2">
+            <Wrench className="w-5 h-5" />
+            Werkstatt eintragen
+          </a>
+        </div>
+      </section>
 
       <Footer />
     </div>

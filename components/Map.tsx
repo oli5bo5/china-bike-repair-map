@@ -6,13 +6,36 @@ import 'leaflet/dist/leaflet.css';
 import { Haendler } from '@/lib/types';
 import { useMapStore } from '@/lib/store';
 
-// Fix für Leaflet Icon Pfade in Next.js
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+// Custom Red Marker Icon (SVG inline als data URL)
+const redMarkerSvg = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="24" height="36">
+  <path fill="#800000" stroke="#5C0000" stroke-width="1" d="M12 0C5.4 0 0 5.4 0 12c0 9 12 24 12 24s12-15 12-24c0-6.6-5.4-12-12-12z"/>
+  <circle fill="#FFFFFF" cx="12" cy="12" r="5"/>
+</svg>
+`;
+
+const redMarkerIcon = L.divIcon({
+  html: redMarkerSvg,
+  className: 'custom-marker',
+  iconSize: [24, 36],
+  iconAnchor: [12, 36],
+  popupAnchor: [0, -36]
+});
+
+// Selected Marker (leicht größer)
+const selectedMarkerSvg = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="30" height="45">
+  <path fill="#A52A2A" stroke="#800000" stroke-width="1.5" d="M12 0C5.4 0 0 5.4 0 12c0 9 12 24 12 24s12-15 12-24c0-6.6-5.4-12-12-12z"/>
+  <circle fill="#FFFFFF" cx="12" cy="12" r="5"/>
+</svg>
+`;
+
+const selectedMarkerIcon = L.divIcon({
+  html: selectedMarkerSvg,
+  className: 'custom-marker selected',
+  iconSize: [30, 45],
+  iconAnchor: [15, 45],
+  popupAnchor: [0, -45]
 });
 
 interface MapProps {
@@ -30,7 +53,7 @@ export default function Map({ haendler }: MapProps) {
       mapRef.current = L.map('map').setView([51.1657, 10.4515], 6);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19,
       }).addTo(mapRef.current);
     }
@@ -54,17 +77,35 @@ export default function Map({ haendler }: MapProps) {
     const haendlerWithCoords = haendler.filter(h => h.lat && h.lng && h.lat !== 0 && h.lng !== 0);
     
     haendlerWithCoords.forEach((h) => {
-      const marker = L.marker([h.lat, h.lng])
+      const isSelected = selectedHaendler?.id === h.id;
+      const marker = L.marker([h.lat, h.lng], {
+        icon: isSelected ? selectedMarkerIcon : redMarkerIcon
+      })
         .addTo(mapRef.current!)
         .bindPopup(
           `
-          <div class="p-2">
-            <h3 class="font-bold text-lg mb-2">${h.name}</h3>
-            <p class="text-sm mb-1"><strong>Adresse:</strong> ${h.adresse}</p>
-            <p class="text-sm mb-1"><strong>Telefon:</strong> ${h.telefon}</p>
-            ${h.website ? `<p class="text-sm mb-1"><strong>Website:</strong> <a href="${h.website}" target="_blank" class="text-blue-600 hover:underline">Link</a></p>` : ''}
-            <p class="text-sm mb-1"><strong>Marken:</strong> ${h.marken.join(', ')}</p>
-            <p class="text-sm"><strong>Öffnungszeiten:</strong> ${h.oeffnungszeiten}</p>
+          <div style="font-family: 'Helvetica Neue', sans-serif; padding: 8px;">
+            <h3 style="color: #800000; font-weight: 700; font-size: 16px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">
+              ${h.name}
+            </h3>
+            <p style="font-size: 13px; color: #333; margin: 4px 0;">
+              <strong style="color: #800000;">📍</strong> ${h.adresse}, ${h.plz} ${h.stadt}
+            </p>
+            <p style="font-size: 13px; color: #333; margin: 4px 0;">
+              <strong style="color: #800000;">📞</strong> ${h.telefon}
+            </p>
+            ${h.website ? `
+              <p style="font-size: 13px; margin: 4px 0;">
+                <strong style="color: #800000;">🌐</strong> 
+                <a href="${h.website}" target="_blank" style="color: #800000; text-decoration: none;">Website</a>
+              </p>
+            ` : ''}
+            <p style="font-size: 12px; color: #666; margin: 8px 0 4px 0;">
+              <strong style="color: #800000;">🔧</strong> ${h.marken.slice(0, 3).join(', ')}${h.marken.length > 3 ? '...' : ''}
+            </p>
+            <p style="font-size: 12px; color: #666; margin: 4px 0; background: #F5F5DC; padding: 6px; border-radius: 4px;">
+              <strong style="color: #800000;">⏰</strong> ${h.oeffnungszeiten}
+            </p>
           </div>
         `,
           { maxWidth: 300 }
@@ -82,7 +123,7 @@ export default function Map({ haendler }: MapProps) {
       const bounds = L.latLngBounds(haendlerWithCoords.map((h) => [h.lat, h.lng]));
       mapRef.current.fitBounds(bounds, { padding: [50, 50] });
     }
-  }, [haendler, setSelectedHaendler]);
+  }, [haendler, selectedHaendler, setSelectedHaendler]);
 
   // Zentriere Karte auf ausgewählten Händler
   useEffect(() => {
@@ -103,7 +144,6 @@ export default function Map({ haendler }: MapProps) {
   }, [selectedHaendler]);
 
   return (
-    <div id="map" className="w-full h-full rounded-lg shadow-lg" />
+    <div id="map" className="w-full h-full" />
   );
 }
-

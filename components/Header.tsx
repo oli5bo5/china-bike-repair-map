@@ -1,65 +1,122 @@
 'use client';
 
-import { Bike, MapPin, Phone, Menu } from 'lucide-react';
+import { useState } from 'react';
 import Link from 'next/link';
+import { Menu, X, Wrench, MapPin, UserCircle, LogIn } from 'lucide-react';
 
 export default function Header() {
-  return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo und Titel */}
-          <div className="flex items-center gap-3">
-            <div className="bg-[#2a5aaa] p-3 rounded-full shadow-md">
-              <Bike className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-[#2a5aaa]">
-                China Bike Repair
-              </h1>
-              <p className="text-sm text-gray-600">
-                Händler & Werkstätten finden
-              </p>
-            </div>
-          </div>
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
+  return (
+    <header className="bg-[#800000] text-white shadow-lg">
+      {/* Top Bar - Logo & Navigation */}
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="flex items-center justify-between py-4">
+          {/* Left Navigation */}
+          <nav className="hidden lg:flex items-center gap-6">
             <Link 
               href="/" 
-              className="flex items-center gap-2 text-gray-700 hover:text-[#2a5aaa] font-medium transition-colors"
+              className="flex items-center gap-2 text-white/90 hover:text-white transition-colors uppercase text-sm font-medium tracking-wide"
             >
               <MapPin className="w-4 h-4" />
               Karte
             </Link>
             <Link 
-              href="#kontakt" 
-              className="flex items-center gap-2 text-gray-700 hover:text-[#2a5aaa] font-medium transition-colors"
+              href="/eintragen" 
+              className="flex items-center gap-2 text-white/90 hover:text-white transition-colors uppercase text-sm font-medium tracking-wide"
             >
-              <Phone className="w-4 h-4" />
-              Kontakt
-            </Link>
-            <Link 
-              href="/eintragen"
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-semibold transition-all"
-            >
+              <Wrench className="w-4 h-4" />
               Werkstatt eintragen
             </Link>
+          </nav>
+
+          {/* Center - Logo */}
+          <div className="flex-1 lg:flex-none text-center">
+            <Link href="/" className="inline-block">
+              <h1 className="text-2xl lg:text-3xl font-bold tracking-widest uppercase">
+                China Bike Repair
+              </h1>
+              <div className="w-16 h-0.5 bg-white/50 mx-auto my-2"></div>
+              <p className="text-xs lg:text-sm font-normal tracking-wider text-white/80 uppercase">
+                Fahrrad-Werkstätten in Deutschland
+              </p>
+            </Link>
+          </div>
+
+          {/* Right Navigation */}
+          <nav className="hidden lg:flex items-center gap-6">
             <Link 
-              href="/auth/login"
-              className="px-4 py-2 text-gray-700 border-2 border-gray-300 rounded-lg hover:border-[#2a5aaa] hover:text-[#2a5aaa] font-semibold transition-all"
+              href="/auth/login" 
+              className="flex items-center gap-2 text-white/90 hover:text-white transition-colors uppercase text-sm font-medium tracking-wide"
             >
+              <LogIn className="w-4 h-4" />
               Login
+            </Link>
+            <Link 
+              href="/admin" 
+              className="flex items-center gap-2 text-white/90 hover:text-white transition-colors uppercase text-sm font-medium tracking-wide"
+            >
+              <UserCircle className="w-4 h-4" />
+              Admin
             </Link>
           </nav>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden p-2 text-gray-700">
-            <Menu className="w-6 h-6" />
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 hover:bg-white/10 rounded transition-colors"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-[#5C0000] border-t border-white/20">
+          <nav className="container mx-auto px-4 py-4 space-y-3">
+            <Link 
+              href="/" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 py-2 text-white/90 hover:text-white transition-colors uppercase text-sm font-medium"
+            >
+              <MapPin className="w-5 h-5" />
+              Karte
+            </Link>
+            <Link 
+              href="/eintragen" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 py-2 text-white/90 hover:text-white transition-colors uppercase text-sm font-medium"
+            >
+              <Wrench className="w-5 h-5" />
+              Werkstatt eintragen
+            </Link>
+            <Link 
+              href="/auth/login" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 py-2 text-white/90 hover:text-white transition-colors uppercase text-sm font-medium"
+            >
+              <LogIn className="w-5 h-5" />
+              Login
+            </Link>
+            <Link 
+              href="/admin" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 py-2 text-white/90 hover:text-white transition-colors uppercase text-sm font-medium"
+            >
+              <UserCircle className="w-5 h-5" />
+              Admin
+            </Link>
+          </nav>
+        </div>
+      )}
+
+      {/* Decorative Bottom Border */}
+      <div className="h-1 bg-gradient-to-r from-transparent via-[#A52A2A] to-transparent"></div>
     </header>
   );
 }
-

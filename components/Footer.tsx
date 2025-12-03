@@ -1,88 +1,103 @@
 'use client';
 
-import { Github, Mail, MapPin, Phone, Bike } from 'lucide-react';
 import Link from 'next/link';
+import { MapPin, Mail, Github, Wrench, ExternalLink } from 'lucide-react';
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-[#2a5aaa] text-white py-10 mt-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Über uns */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Bike className="w-6 h-6" />
-              <h3 className="text-xl font-bold">China Bike Repair</h3>
-            </div>
-            <p className="text-white/80 text-sm">
-              Finden Sie Händler und Werkstätten für chinesische Fahrräder und E-Bikes in Ihrer Nähe.
+    <footer className="bg-[#800000] text-white">
+      {/* Main Footer Content */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {/* Brand Section */}
+          <div className="text-center md:text-left">
+            <h3 className="text-2xl font-bold tracking-widest uppercase mb-2">
+              China Bike Repair
+            </h3>
+            <div className="w-12 h-0.5 bg-white/50 mx-auto md:mx-0 my-3"></div>
+            <p className="text-white/80 text-sm leading-relaxed">
+              Das Verzeichnis für spezialisierte Werkstätten und Händler für chinesische Fahrräder und E-Bikes in Deutschland.
             </p>
           </div>
 
-          {/* Schnelllinks */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Schnelllinks</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/" className="text-white/80 hover:text-white transition-colors flex items-center gap-2">
-                  <MapPin className="w-4 h-4" />
-                  Karte
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-white/80 hover:text-white transition-colors">
-                  Über uns
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-white/80 hover:text-white transition-colors">
-                  Datenschutz
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-white/80 hover:text-white transition-colors">
-                  Impressum
-                </Link>
-              </li>
-            </ul>
+          {/* Quick Links */}
+          <div className="text-center">
+            <h4 className="font-bold uppercase tracking-wide mb-4 text-white">
+              Schnelllinks
+            </h4>
+            <nav className="space-y-3">
+              <Link 
+                href="/" 
+                className="flex items-center justify-center gap-2 text-[#F5F5DC] hover:text-white transition-colors text-sm"
+              >
+                <MapPin className="w-4 h-4" />
+                Karte
+              </Link>
+              <Link 
+                href="/eintragen" 
+                className="flex items-center justify-center gap-2 text-[#F5F5DC] hover:text-white transition-colors text-sm"
+              >
+                <Wrench className="w-4 h-4" />
+                Werkstatt eintragen
+              </Link>
+              <Link 
+                href="/datenschutz" 
+                className="flex items-center justify-center gap-2 text-[#F5F5DC] hover:text-white transition-colors text-sm"
+              >
+                Datenschutz
+              </Link>
+              <Link 
+                href="/impressum" 
+                className="flex items-center justify-center gap-2 text-[#F5F5DC] hover:text-white transition-colors text-sm"
+              >
+                Impressum
+              </Link>
+            </nav>
           </div>
 
-          {/* Kontakt */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Kontakt</h4>
-            <ul className="space-y-3 text-sm text-white/80">
-              <li className="flex items-center gap-2">
+          {/* Contact */}
+          <div className="text-center md:text-right">
+            <h4 className="font-bold uppercase tracking-wide mb-4 text-white">
+              Kontakt
+            </h4>
+            <div className="space-y-3">
+              <a 
+                href="mailto:info@china-bike-repair.de"
+                className="flex items-center justify-center md:justify-end gap-2 text-[#F5F5DC] hover:text-white transition-colors text-sm"
+              >
                 <Mail className="w-4 h-4" />
-                <a href="mailto:info@china-bike-repair.de" className="hover:text-white transition-colors">
-                  info@china-bike-repair.de
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
+                info@china-bike-repair.de
+              </a>
+              <a 
+                href="https://github.com/oli5bo5/china-bike-repair-map"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center md:justify-end gap-2 text-[#F5F5DC] hover:text-white transition-colors text-sm"
+              >
                 <Github className="w-4 h-4" />
-                <a 
-                  href="https://github.com/oli5bo5/china-bike-repair-map" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
-                >
-                  GitHub Repository
-                </a>
-              </li>
-            </ul>
+                GitHub Repository
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Copyright */}
-        <div className="border-t border-white/20 pt-6 text-center">
-          <p className="text-sm text-white/80">
-            © {new Date().getFullYear()} China Bike Repair Map. Alle Rechte vorbehalten.
-          </p>
-          <p className="text-xs text-white/60 mt-2">
-            Daten werden von der Community bereitgestellt. Keine Garantie für Vollständigkeit.
-          </p>
+      {/* Bottom Bar */}
+      <div className="border-t border-white/20">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+            <p className="text-white/60">
+              © {currentYear} China Bike Repair Map. Alle Rechte vorbehalten.
+            </p>
+            <p className="text-white/60 flex items-center gap-2">
+              Made with <span className="text-[#A52A2A]">♥</span> in Germany
+            </p>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
-

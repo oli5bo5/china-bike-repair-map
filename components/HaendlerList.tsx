@@ -1,151 +1,147 @@
 'use client';
 
 import { useMapStore } from '@/lib/store';
-import { Haendler } from '@/lib/types';
-import { MapPin, Phone, Mail, Globe, Clock, Wrench } from 'lucide-react';
-
-interface HaendlerCardProps {
-  haendler: Haendler;
-  isSelected: boolean;
-  onClick: () => void;
-}
-
-function HaendlerCard({ haendler, isSelected, onClick }: HaendlerCardProps) {
-  return (
-    <div
-      onClick={onClick}
-      className={`card cursor-pointer transition-all hover:scale-[1.02] ${
-        isSelected ? 'ring-2 ring-[#2a5aaa] shadow-medium bg-[#f0f6ff]' : ''
-      }`}
-    >
-      <h3 className="text-lg font-bold text-gray-800 mb-2">{haendler.name}</h3>
-      
-      <div className="space-y-2 text-sm text-gray-600">
-        {/* Adresse */}
-        <div className="flex items-start gap-2">
-          <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#2a5aaa]" />
-          <span>{haendler.adresse}</span>
-        </div>
-
-        {/* Telefon */}
-        <div className="flex items-center gap-2">
-          <Phone className="w-4 h-4 flex-shrink-0 text-[#2a5aaa]" />
-          <a href={`tel:${haendler.telefon}`} className="hover:text-[#2a5aaa]">
-            {haendler.telefon}
-          </a>
-        </div>
-
-        {/* Email */}
-        <div className="flex items-center gap-2">
-          <Mail className="w-4 h-4 flex-shrink-0 text-[#2a5aaa]" />
-          <a href={`mailto:${haendler.email}`} className="hover:text-[#2a5aaa] truncate">
-            {haendler.email}
-          </a>
-        </div>
-
-        {/* Website */}
-        {haendler.website && (
-          <div className="flex items-center gap-2">
-            <Globe className="w-4 h-4 flex-shrink-0 text-[#2a5aaa]" />
-            <a
-              href={haendler.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-[#2a5aaa] truncate"
-            >
-              Website besuchen
-            </a>
-          </div>
-        )}
-
-        {/* Öffnungszeiten */}
-        <div className="flex items-start gap-2">
-          <Clock className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#2a5aaa]" />
-          <span>{haendler.oeffnungszeiten}</span>
-        </div>
-
-        {/* Beschreibung */}
-        <p className="text-gray-700 mt-2 pt-2 border-t border-gray-200">
-          {haendler.beschreibung}
-        </p>
-
-        {/* Marken */}
-        <div className="mt-3">
-          <p className="font-medium text-gray-700 mb-1">Reparierte Marken:</p>
-          <div className="flex flex-wrap gap-1">
-            {haendler.marken.map((marke) => (
-              <span
-                key={marke}
-                className="px-2 py-1 bg-[#e0edff] text-[#1a3d8f] rounded text-xs font-medium"
-              >
-                {marke}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Dienstleistungen */}
-        <div className="mt-3">
-          <p className="font-medium text-gray-700 mb-1 flex items-center gap-1">
-            <Wrench className="w-4 h-4" />
-            Dienstleistungen:
-          </p>
-          <div className="flex flex-wrap gap-1">
-            {haendler.dienstleistungen.map((dl) => (
-              <span
-                key={dl}
-                className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs"
-              >
-                {dl}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { Phone, Mail, Globe, Clock, MapPin, Wrench, ChevronRight } from 'lucide-react';
 
 export default function HaendlerList() {
-  const { getFilteredHaendler, selectedHaendler, setSelectedHaendler } = useMapStore();
+  const { getFilteredHaendler, setSelectedHaendler, selectedHaendler } = useMapStore();
   const filteredHaendler = getFilteredHaendler();
+
+  if (filteredHaendler.length === 0) {
+    return (
+      <div className="bg-white shadow-md border-t-4 border-[#800000] p-8 text-center">
+        <div className="w-16 h-16 bg-[#F5F5DC] rounded-full flex items-center justify-center mx-auto mb-4">
+          <MapPin className="w-8 h-8 text-[#800000]" />
+        </div>
+        <h3 className="text-lg font-bold text-[#800000] mb-2 uppercase">Keine Ergebnisse</h3>
+        <p className="text-[#666] text-sm">
+          Keine Werkstätten gefunden. Bitte ändern Sie Ihre Filtereinstellungen.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
-      <div className="card">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-[#2a5aaa]">
-            Werkstätten
-          </h2>
-          <span className="bg-[#2a5aaa] text-white px-4 py-2 rounded-full text-sm font-bold shadow-sm">
-            {filteredHaendler.length}
-          </span>
-        </div>
+      {/* Header */}
+      <div className="bg-[#800000] text-white px-4 py-3 flex items-center justify-between">
+        <h3 className="font-bold uppercase tracking-wide text-sm">
+          {filteredHaendler.length} Werkstätten gefunden
+        </h3>
+        <Wrench className="w-5 h-5" />
       </div>
 
-      {filteredHaendler.length === 0 ? (
-        <div className="card text-center py-12">
-          <div className="bg-gray-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+      {/* Workshop Cards */}
+      {filteredHaendler.map((haendler) => (
+        <div
+          key={haendler.id}
+          onClick={() => setSelectedHaendler(haendler)}
+          className={`
+            bg-white border-l-4 cursor-pointer transition-all shadow-sm
+            ${selectedHaendler?.id === haendler.id 
+              ? 'border-[#A52A2A] shadow-md translate-x-2' 
+              : 'border-[#800000] hover:shadow-md hover:translate-x-1'
+            }
+          `}
+        >
+          <div className="p-4">
+            {/* Name & Location */}
+            <div className="flex items-start justify-between mb-3">
+              <div>
+                <h4 className="font-bold text-[#800000] text-lg uppercase tracking-wide">
+                  {haendler.name}
+                </h4>
+                <p className="text-sm text-[#666] flex items-center gap-1 mt-1">
+                  <MapPin className="w-4 h-4" />
+                  {haendler.stadt}
+                </p>
+              </div>
+              <ChevronRight className={`w-5 h-5 text-[#800000] transition-transform ${
+                selectedHaendler?.id === haendler.id ? 'rotate-90' : ''
+              }`} />
+            </div>
+
+            {/* Contact Info */}
+            <div className="space-y-2 mb-3">
+              <a 
+                href={`tel:${haendler.telefon}`}
+                className="flex items-center gap-2 text-sm text-[#333] hover:text-[#800000] transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Phone className="w-4 h-4 text-[#800000]" />
+                {haendler.telefon}
+              </a>
+              <a 
+                href={`mailto:${haendler.email}`}
+                className="flex items-center gap-2 text-sm text-[#333] hover:text-[#800000] transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Mail className="w-4 h-4 text-[#800000]" />
+                {haendler.email}
+              </a>
+              {haendler.website && (
+                <a 
+                  href={haendler.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-[#333] hover:text-[#800000] transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Globe className="w-4 h-4 text-[#800000]" />
+                  Website besuchen
+                </a>
+              </a>
+              )}
+            </div>
+
+            {/* Opening Hours */}
+            {haendler.oeffnungszeiten && (
+              <div className="flex items-start gap-2 text-sm text-[#666] mb-3 bg-[#F5F5DC] p-2 rounded">
+                <Clock className="w-4 h-4 text-[#800000] flex-shrink-0 mt-0.5" />
+                <span>{haendler.oeffnungszeiten}</span>
+              </div>
+            )}
+
+            {/* Brands */}
+            {haendler.marken.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {haendler.marken.slice(0, 4).map((marke) => (
+                  <span
+                    key={marke}
+                    className="px-2 py-0.5 text-xs font-medium bg-[#800000] text-white"
+                  >
+                    {marke}
+                  </span>
+                ))}
+                {haendler.marken.length > 4 && (
+                  <span className="px-2 py-0.5 text-xs font-medium bg-[#333] text-white">
+                    +{haendler.marken.length - 4}
+                  </span>
+                )}
+              </div>
+            )}
+
+            {/* Services */}
+            {haendler.dienstleistungen.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {haendler.dienstleistungen.slice(0, 3).map((dl) => (
+                  <span
+                    key={dl}
+                    className="px-2 py-0.5 text-xs font-medium bg-[#F5F5DC] text-[#800000] border border-[#800000]/20"
+                  >
+                    {dl}
+                  </span>
+                ))}
+                {haendler.dienstleistungen.length > 3 && (
+                  <span className="px-2 py-0.5 text-xs font-medium bg-[#F5F5DC] text-[#666]">
+                    +{haendler.dienstleistungen.length - 3}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
-          <p className="text-xl font-semibold text-gray-700 mb-2">Keine Werkstätten gefunden</p>
-          <p className="text-sm text-gray-500">Versuchen Sie, die Filter anzupassen</p>
         </div>
-      ) : (
-        <div className="space-y-3">
-          {filteredHaendler.map((haendler) => (
-            <HaendlerCard
-              key={haendler.id}
-              haendler={haendler}
-              isSelected={selectedHaendler?.id === haendler.id}
-              onClick={() => setSelectedHaendler(haendler)}
-            />
-          ))}
-        </div>
-      )}
+      ))}
     </div>
   );
 }
-
