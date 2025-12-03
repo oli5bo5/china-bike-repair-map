@@ -158,9 +158,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Hero Section - EXTREM SCHMAL (200px) */}
+      {/* Hero Section - Breite für einzeilige Sätze */}
       <section className="relative bg-[#F5F5DC] py-16 lg:py-20 overflow-hidden">
-        <div className="max-w-[200px] mx-auto px-4 text-center relative z-10">
+        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
           {/* Main Title - BLAU statt ROT */}
           <h1 className="text-4xl lg:text-5xl font-bold text-[#1e3a5f] mb-4 uppercase tracking-wide">
             Finden Sie Ihre Werkstatt
