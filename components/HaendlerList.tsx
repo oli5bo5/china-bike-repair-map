@@ -9,11 +9,11 @@ export default function HaendlerList() {
 
   if (filteredHaendler.length === 0) {
     return (
-      <div className="bg-white shadow-md border-t-4 border-[#800000] p-8 text-center">
+      <div className="bg-white shadow-md border-t-4 border-[#1e3a5f] p-8 text-center">
         <div className="w-16 h-16 bg-[#F5F5DC] rounded-full flex items-center justify-center mx-auto mb-4">
-          <MapPin className="w-8 h-8 text-[#800000]" />
+          <MapPin className="w-8 h-8 text-[#1e3a5f]" />
         </div>
-        <h3 className="text-lg font-bold text-[#800000] mb-2 uppercase">Keine Ergebnisse</h3>
+        <h3 className="text-lg font-bold text-[#1e3a5f] mb-2 uppercase">Keine Ergebnisse</h3>
         <p className="text-[#666] text-sm">
           Keine Werkstätten gefunden. Bitte ändern Sie Ihre Filtereinstellungen.
         </p>
@@ -24,7 +24,7 @@ export default function HaendlerList() {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="bg-[#800000] text-white px-4 py-3 flex items-center justify-between">
+      <div className="bg-[#1e3a5f] text-white px-4 py-3 flex items-center justify-between">
         <h3 className="font-bold uppercase tracking-wide text-sm">
           {filteredHaendler.length} Werkstätten gefunden
         </h3>
@@ -48,7 +48,7 @@ export default function HaendlerList() {
             {/* Name & Location */}
             <div className="flex items-start justify-between mb-3">
               <div>
-                <h4 className="font-bold text-[#800000] text-lg uppercase tracking-wide">
+                <h4 className="font-bold text-[#1e3a5f] text-lg uppercase tracking-wide">
                   {haendler.name}
                 </h4>
                 <p className="text-sm text-[#666] flex items-center gap-1 mt-1">
@@ -56,7 +56,7 @@ export default function HaendlerList() {
                   {haendler.stadt}
                 </p>
               </div>
-              <ChevronRight className={`w-5 h-5 text-[#800000] transition-transform ${
+              <ChevronRight className={`w-5 h-5 text-[#1e3a5f] transition-transform ${
                 selectedHaendler?.id === haendler.id ? 'rotate-90' : ''
               }`} />
             </div>
@@ -65,18 +65,18 @@ export default function HaendlerList() {
             <div className="space-y-2 mb-3">
               <a 
                 href={`tel:${haendler.telefon}`}
-                className="flex items-center gap-2 text-sm text-[#333] hover:text-[#800000] transition-colors"
+                className="flex items-center gap-2 text-sm text-[#333] hover:text-[#1e3a5f] transition-colors"
                 onClick={(e) => e.stopPropagation()}
               >
-                <Phone className="w-4 h-4 text-[#800000]" />
+                <Phone className="w-4 h-4 text-[#1e3a5f]" />
                 {haendler.telefon}
               </a>
               <a 
                 href={`mailto:${haendler.email}`}
-                className="flex items-center gap-2 text-sm text-[#333] hover:text-[#800000] transition-colors"
+                className="flex items-center gap-2 text-sm text-[#333] hover:text-[#1e3a5f] transition-colors"
                 onClick={(e) => e.stopPropagation()}
               >
-                <Mail className="w-4 h-4 text-[#800000]" />
+                <Mail className="w-4 h-4 text-[#1e3a5f]" />
                 {haendler.email}
               </a>
               {haendler.website && (
@@ -84,10 +84,10 @@ export default function HaendlerList() {
                   href={haendler.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-[#333] hover:text-[#800000] transition-colors"
+                  className="flex items-center gap-2 text-sm text-[#333] hover:text-[#1e3a5f] transition-colors"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <Globe className="w-4 h-4 text-[#800000]" />
+                  <Globe className="w-4 h-4 text-[#1e3a5f]" />
                   Website besuchen
                 </a>   
               )}
@@ -96,12 +96,12 @@ export default function HaendlerList() {
             {/* Opening Hours */}
             {haendler.oeffnungszeiten && (
               <div className="flex items-start gap-2 text-sm text-[#666] mb-3 bg-[#F5F5DC] p-2 rounded">
-                <Clock className="w-4 h-4 text-[#800000] flex-shrink-0 mt-0.5" />
+                <Clock className="w-4 h-4 text-[#1e3a5f] flex-shrink-0 mt-0.5" />
                 <span>{haendler.oeffnungszeiten}</span>
               </div>
             )}
 
-            {/* Brands */}
+            {/* Brands - Rot behalten als Akzent */}
             {haendler.marken.length > 0 && (
               <div className="flex flex-wrap gap-1.5 mb-2">
                 {haendler.marken.slice(0, 4).map((marke) => (
@@ -120,13 +120,13 @@ export default function HaendlerList() {
               </div>
             )}
 
-            {/* Services */}
+            {/* Services - Blau für Text */}
             {haendler.dienstleistungen.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {haendler.dienstleistungen.slice(0, 3).map((dl) => (
                   <span
                     key={dl}
-                    className="px-2 py-0.5 text-xs font-medium bg-[#F5F5DC] text-[#800000] border border-[#800000]/20"
+                    className="px-2 py-0.5 text-xs font-medium bg-[#F5F5DC] text-[#1e3a5f] border border-[#1e3a5f]/20"
                   >
                     {dl}
                   </span>

@@ -17,8 +17,8 @@ const Map = dynamic(() => import('@/components/Map'), {
   loading: () => (
     <div className="w-full h-full flex items-center justify-center bg-[#F5F5DC]">
       <div className="text-center">
-        <div className="w-12 h-12 border-4 border-[#800000] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-        <p className="text-[#800000] font-medium uppercase tracking-wide text-sm">Karte wird geladen...</p>
+        <div className="w-12 h-12 border-4 border-[#1e3a5f] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-[#1e3a5f] font-medium uppercase tracking-wide text-sm">Karte wird geladen...</p>
       </div>
     </div>
   ),
@@ -138,18 +138,34 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-white">
       <Header />
 
-      {/* Hero Section - Urban Pedal Craft Style */}
-      <section className="relative bg-[#F5F5DC] py-16 lg:py-24 overflow-hidden">
-        {/* Ink Decoration */}
-        <div className="ink-decoration top-0 left-0"></div>
-        <div className="ink-decoration bottom-0 right-0 rotate-180"></div>
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
-          {/* Main Title */}
-          <h2 className="text-4xl lg:text-5xl font-bold text-[#800000] mb-4 uppercase tracking-wide">
-            Finden Sie Ihre Werkstatt
+      {/* NEU: "Sie betreiben eine Werkstatt?" Section ZUERST */}
+      <section className="py-12 px-4 bg-white border-b">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-[#1e3a5f] mb-4 uppercase tracking-wide">
+            Sie betreiben eine Werkstatt?
           </h2>
-          <div className="divider"></div>
+          <div className="w-16 h-0.5 bg-[#800000] mx-auto my-4"></div>
+          <p className="text-lg text-[#666] max-w-xl mx-auto mb-6">
+            Tragen Sie Ihre Werkstatt kostenlos in unser Verzeichnis ein und erreichen Sie neue Kunden
+          </p>
+          <a 
+            href="/eintragen" 
+            className="inline-flex items-center gap-2 bg-[#800000] text-white px-8 py-3 font-semibold uppercase tracking-wider hover:bg-[#A52A2A] transition-all shadow-md hover:shadow-lg"
+          >
+            <Wrench className="w-5 h-5" />
+            Jetzt eintragen
+          </a>
+        </div>
+      </section>
+
+      {/* Hero Section - SCHMALER (max-w-3xl) */}
+      <section className="relative bg-[#F5F5DC] py-16 lg:py-20 overflow-hidden">
+        <div className="max-w-3xl mx-auto px-4 text-center relative z-10">
+          {/* Main Title - BLAU statt ROT */}
+          <h1 className="text-4xl lg:text-5xl font-bold text-[#1e3a5f] mb-4 uppercase tracking-wide">
+            Finden Sie Ihre Werkstatt
+          </h1>
+          <div className="w-16 h-0.5 bg-[#800000] mx-auto my-4"></div>
           <p className="text-lg text-[#333] max-w-2xl mx-auto mb-8">
             Spezialisierte Händler und Werkstätten für chinesische Fahrräder und E-Bikes in ganz Deutschland
           </p>
@@ -157,13 +173,13 @@ export default function Home() {
           {/* Statistics */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
             <div className="bg-white px-8 py-4 shadow-md border-l-4 border-[#800000]">
-              <span className="text-4xl font-bold text-[#800000]">
+              <span className="text-4xl font-bold text-[#1e3a5f]">
                 {loading ? '...' : totalCount}
               </span>
               <span className="block text-sm uppercase tracking-wide text-[#333] mt-1">Werkstätten</span>
             </div>
             <div className="bg-white px-8 py-4 shadow-md border-l-4 border-[#800000]">
-              <span className="text-4xl font-bold text-[#800000]">
+              <span className="text-4xl font-bold text-[#1e3a5f]">
                 {loading ? '...' : cityCount}
               </span>
               <span className="block text-sm uppercase tracking-wide text-[#333] mt-1">Städte</span>
@@ -173,23 +189,23 @@ export default function Home() {
           {/* CTA Button */}
           <a 
             href="#map-section" 
-            className="inline-block btn-primary"
+            className="inline-block bg-[#800000] text-white px-8 py-3 font-semibold uppercase tracking-wider hover:bg-[#A52A2A] transition-all shadow-md hover:shadow-lg"
           >
-            Jetzt Werkstatt finden
+            Zur Karte
           </a>
         </div>
       </section>
 
-      {/* Feature Section */}
+      {/* Feature Section - BLAU statt ROT */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
             <div className="feature-box">
-              <div className="feature-icon">
+              <div className="text-[#1e3a5f] mb-4">
                 <MapPin className="w-12 h-12 mx-auto" />
               </div>
-              <h3 className="text-xl font-bold text-[#800000] mb-3 uppercase">Interaktive Karte</h3>
+              <h3 className="text-xl font-bold text-[#1e3a5f] mb-3 uppercase">Interaktive Karte</h3>
               <p className="text-[#666]">
                 Finden Sie Werkstätten in Ihrer Nähe auf unserer interaktiven Deutschlandkarte
               </p>
@@ -197,10 +213,10 @@ export default function Home() {
 
             {/* Feature 2 */}
             <div className="feature-box" style={{ animationDelay: '0.1s' }}>
-              <div className="feature-icon">
+              <div className="text-[#1e3a5f] mb-4">
                 <Search className="w-12 h-12 mx-auto" />
               </div>
-              <h3 className="text-xl font-bold text-[#800000] mb-3 uppercase">Smart Filter</h3>
+              <h3 className="text-xl font-bold text-[#1e3a5f] mb-3 uppercase">Smart Filter</h3>
               <p className="text-[#666]">
                 Filtern Sie nach Stadt, Marke und angebotenen Dienstleistungen
               </p>
@@ -208,10 +224,10 @@ export default function Home() {
 
             {/* Feature 3 */}
             <div className="feature-box" style={{ animationDelay: '0.2s' }}>
-              <div className="feature-icon">
+              <div className="text-[#1e3a5f] mb-4">
                 <Zap className="w-12 h-12 mx-auto" />
               </div>
-              <h3 className="text-xl font-bold text-[#800000] mb-3 uppercase">Schnell & Einfach</h3>
+              <h3 className="text-xl font-bold text-[#1e3a5f] mb-3 uppercase">Schnell & Einfach</h3>
               <p className="text-[#666]">
                 Kontaktdaten und Öffnungszeiten auf einen Blick verfügbar
               </p>
@@ -223,16 +239,16 @@ export default function Home() {
       {/* Main Content - Map & List */}
       <main id="map-section" className="flex-1 bg-[#F5F5DC] py-12">
         <div className="container mx-auto px-4">
-          {/* Section Title */}
+          {/* Section Title - BLAU */}
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-[#800000] uppercase tracking-wide">Werkstätten-Verzeichnis</h2>
-            <div className="divider"></div>
+            <h2 className="text-3xl font-bold text-[#1e3a5f] uppercase tracking-wide">Werkstätten-Verzeichnis</h2>
+            <div className="w-16 h-0.5 bg-[#800000] mx-auto my-4"></div>
           </div>
 
           {/* Error Message */}
           {error && (
             <div className="mb-6 bg-white border-l-4 border-[#800000] p-4 shadow-md">
-              <p className="font-semibold text-[#800000]">⚠️ {error}</p>
+              <p className="font-semibold text-[#1e3a5f]">⚠️ {error}</p>
               <button 
                 onClick={loadWorkshops}
                 className="mt-2 text-sm text-[#800000] underline hover:no-underline"
@@ -244,8 +260,8 @@ export default function Home() {
 
           {/* No Workshops Info */}
           {!loading && !error && totalCount === 0 && (
-            <div className="mb-6 bg-white border-l-4 border-[#A52A2A] p-4 shadow-md">
-              <p className="font-semibold text-[#800000]">📋 Noch keine Werkstätten vorhanden</p>
+            <div className="mb-6 bg-white border-l-4 border-[#800000] p-4 shadow-md">
+              <p className="font-semibold text-[#1e3a5f]">📋 Noch keine Werkstätten vorhanden</p>
               <p className="text-sm text-[#666] mt-1">
                 Neue Einträge müssen von einem Administrator freigegeben werden.
               </p>
@@ -266,8 +282,8 @@ export default function Home() {
                 {loading ? (
                   <div className="w-full h-full flex items-center justify-center bg-[#F5F5DC]">
                     <div className="text-center">
-                      <div className="w-12 h-12 border-4 border-[#800000] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                      <p className="text-[#800000] font-medium uppercase tracking-wide text-sm">Lädt...</p>
+                      <div className="w-12 h-12 border-4 border-[#1e3a5f] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                      <p className="text-[#1e3a5f] font-medium uppercase tracking-wide text-sm">Lädt...</p>
                     </div>
                   </div>
                 ) : (
@@ -281,7 +297,7 @@ export default function Home() {
               <div className="fade-in">
                 {loading ? (
                   <div className="card p-8 text-center bg-white">
-                    <div className="w-8 h-8 border-4 border-[#800000] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <div className="w-8 h-8 border-4 border-[#1e3a5f] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-[#666]">Lädt...</p>
                   </div>
                 ) : (
@@ -292,21 +308,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-[#800000] mb-4 uppercase">Sie betreiben eine Werkstatt?</h2>
-          <div className="divider"></div>
-          <p className="text-lg text-[#666] max-w-xl mx-auto mb-8">
-            Tragen Sie Ihre Werkstatt kostenlos ein und werden Sie Teil unseres Netzwerks für chinesische Fahrräder und E-Bikes.
-          </p>
-          <a href="/eintragen" className="btn-primary inline-flex items-center gap-2">
-            <Wrench className="w-5 h-5" />
-            Werkstatt eintragen
-          </a>
-        </div>
-      </section>
 
       <Footer />
     </div>
