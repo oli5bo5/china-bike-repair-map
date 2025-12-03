@@ -9,7 +9,7 @@ export default function HaendlerList() {
 
   if (filteredHaendler.length === 0) {
     return (
-      <div className="bg-white shadow-md border-t-4 border-[#1e3a5f] p-8 text-center">
+      <div className="bg-white shadow-md border-t-4 border-[#1e3a5f] p-8 text-center rounded-xl">
         <div className="w-16 h-16 bg-[#F5F5DC] rounded-full flex items-center justify-center mx-auto mb-4">
           <MapPin className="w-8 h-8 text-[#1e3a5f]" />
         </div>
@@ -24,7 +24,7 @@ export default function HaendlerList() {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="bg-[#1e3a5f] text-white px-4 py-3 flex items-center justify-between">
+      <div className="bg-[#1e3a5f] text-white px-4 py-3 flex items-center justify-between rounded-xl">
         <h3 className="font-bold uppercase tracking-wide text-sm">
           {filteredHaendler.length} Werkstätten gefunden
         </h3>
@@ -37,7 +37,7 @@ export default function HaendlerList() {
           key={haendler.id}
           onClick={() => setSelectedHaendler(haendler)}
           className={`
-            bg-white border-l-4 cursor-pointer transition-all shadow-sm
+            bg-white border-l-4 cursor-pointer transition-all shadow-sm rounded-xl
             ${selectedHaendler?.id === haendler.id 
               ? 'border-[#A52A2A] shadow-md translate-x-2' 
               : 'border-[#800000] hover:shadow-md hover:translate-x-1'
@@ -95,7 +95,7 @@ export default function HaendlerList() {
 
             {/* Opening Hours */}
             {haendler.oeffnungszeiten && (
-              <div className="flex items-start gap-2 text-sm text-[#666] mb-3 bg-[#F5F5DC] p-2 rounded">
+              <div className="flex items-start gap-2 text-sm text-[#666] mb-3 bg-[#F5F5DC] p-2 rounded-lg">
                 <Clock className="w-4 h-4 text-[#1e3a5f] flex-shrink-0 mt-0.5" />
                 <span>{haendler.oeffnungszeiten}</span>
               </div>
@@ -107,13 +107,13 @@ export default function HaendlerList() {
                 {haendler.marken.slice(0, 4).map((marke) => (
                   <span
                     key={marke}
-                    className="px-2 py-0.5 text-xs font-medium bg-[#800000] text-white"
+                    className="px-2 py-0.5 text-xs font-medium bg-[#800000] text-white rounded-lg"
                   >
                     {marke}
                   </span>
                 ))}
                 {haendler.marken.length > 4 && (
-                  <span className="px-2 py-0.5 text-xs font-medium bg-[#333] text-white">
+                  <span className="px-2 py-0.5 text-xs font-medium bg-[#333] text-white rounded-lg">
                     +{haendler.marken.length - 4}
                   </span>
                 )}
@@ -126,13 +126,13 @@ export default function HaendlerList() {
                 {haendler.dienstleistungen.slice(0, 3).map((dl) => (
                   <span
                     key={dl}
-                    className="px-2 py-0.5 text-xs font-medium bg-[#F5F5DC] text-[#1e3a5f] border border-[#1e3a5f]/20"
+                    className="px-2 py-0.5 text-xs font-medium bg-[#F5F5DC] text-[#1e3a5f] border border-[#1e3a5f]/20 rounded-lg"
                   >
                     {dl}
                   </span>
                 ))}
                 {haendler.dienstleistungen.length > 3 && (
-                  <span className="px-2 py-0.5 text-xs font-medium bg-[#F5F5DC] text-[#666]">
+                  <span className="px-2 py-0.5 text-xs font-medium bg-[#F5F5DC] text-[#666] rounded-lg">
                     +{haendler.dienstleistungen.length - 3}
                   </span>
                 )}

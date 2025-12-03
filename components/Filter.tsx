@@ -33,10 +33,10 @@ export default function Filter() {
     filters.selectedStadt !== 'Alle';
 
   return (
-    <div className="bg-white shadow-md border-t-4 border-[#1e3a5f] p-6">
+    <div className="bg-white shadow-md border-t-4 border-[#1e3a5f] p-6 rounded-xl">
       {/* Title */}
       <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 bg-[#1e3a5f] rounded flex items-center justify-center">
+        <div className="w-10 h-10 bg-[#1e3a5f] rounded-xl flex items-center justify-center">
           <Search className="w-5 h-5 text-white" />
         </div>
         <div>
@@ -123,7 +123,7 @@ export default function Filter() {
       {hasActiveFilters && (
         <button
           onClick={resetFilters}
-          className="w-full flex items-center justify-center gap-2 py-3 text-[#1e3a5f] border-2 border-[#1e3a5f] font-semibold uppercase tracking-wide text-sm hover:bg-[#1e3a5f] hover:text-white transition-all"
+          className="w-full flex items-center justify-center gap-2 py-3 text-[#1e3a5f] border-2 border-[#1e3a5f] font-semibold uppercase tracking-wide text-sm hover:bg-[#1e3a5f] hover:text-white transition-all rounded-xl"
         >
           <RotateCcw className="w-4 h-4" />
           Filter zurücksetzen
