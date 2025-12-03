@@ -138,29 +138,9 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-white">
       <Header />
 
-      {/* NEU: "Sie betreiben eine Werkstatt?" Section ZUERST */}
-      <section className="py-12 px-4 bg-white border-b">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-[#1e3a5f] mb-4 uppercase tracking-wide">
-            Sie betreiben eine Werkstatt?
-          </h2>
-          <div className="w-16 h-0.5 bg-[#800000] mx-auto my-4"></div>
-          <p className="text-lg text-[#666] max-w-xl mx-auto mb-6">
-            Tragen Sie Ihre Werkstatt kostenlos in unser Verzeichnis ein und erreichen Sie neue Kunden
-          </p>
-          <a 
-            href="/eintragen" 
-            className="inline-flex items-center gap-2 bg-[#800000] text-white px-8 py-3 font-semibold uppercase tracking-wider hover:bg-[#A52A2A] transition-all shadow-md hover:shadow-lg"
-          >
-            <Wrench className="w-5 h-5" />
-            Jetzt eintragen
-          </a>
-        </div>
-      </section>
-
-      {/* Hero Section - Breite für einzeilige Sätze */}
+      {/* Hero Section - Volle Breite für einzeilige Sätze */}
       <section className="relative bg-[#F5F5DC] py-16 lg:py-20 overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+        <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
           {/* Main Title - BLAU statt ROT */}
           <h1 className="text-4xl lg:text-5xl font-bold text-[#1e3a5f] mb-4 uppercase tracking-wide">
             Finden Sie Ihre Werkstatt
@@ -308,6 +288,26 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      {/* "Sie betreiben eine Werkstatt?" Section - UNTER der Karte */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-[#1e3a5f] mb-4 uppercase tracking-wide">
+            Sie betreiben eine Werkstatt?
+          </h2>
+          <div className="w-16 h-0.5 bg-[#800000] mx-auto my-4"></div>
+          <p className="text-lg text-[#666] mb-8">
+            Tragen Sie Ihre Werkstatt kostenlos in unser Verzeichnis ein und erreichen Sie neue Kunden
+          </p>
+          <a 
+            href="/eintragen" 
+            className="inline-flex items-center gap-2 bg-[#800000] text-white px-8 py-3 font-semibold uppercase tracking-wider hover:bg-[#A52A2A] transition-all shadow-md hover:shadow-lg"
+          >
+            <Wrench className="w-5 h-5" />
+            Jetzt eintragen
+          </a>
+        </div>
+      </section>
 
       <Footer />
     </div>
