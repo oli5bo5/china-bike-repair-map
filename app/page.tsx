@@ -146,7 +146,7 @@ export default function Home() {
             Finden Sie Ihre Werkstatt
           </h1>
           <div className="w-16 h-0.5 bg-[#800000] mx-auto my-4"></div>
-          <p className="text-lg text-[#333] max-w-2xl mx-auto mb-8">
+          <p className="text-lg text-[#333] mb-8">
             Spezialisierte Händler und Werkstätten für chinesische Fahrräder und E-Bikes in ganz Deutschland
           </p>
 
